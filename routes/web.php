@@ -1,0 +1,26 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\JabatanController;
+use App\Http\Controllers\PegawaiController;
+
+
+
+
+
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+
+Route::resource('jabatan', JabatanController::class);
+Route::resource('pegawai', PegawaiController::class);
+
+
