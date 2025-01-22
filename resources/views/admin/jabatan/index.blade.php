@@ -70,13 +70,13 @@
                                                             data-bs-html="true" title="Update"></i>
                                                         </a>
 
-                                                    <a href="{{ route('jabatan.destroy', $data->id) }}"
+                                                    <button
                                                         aria-label="anchor" class="btn btn-sm bg-danger-subtle" data-confirm-delete="true"
                                                         style="padding-left: 20px; padding-right: 20px; padding-top: 7px; padding-bottom: 7px">
                                                         <i class="mdi mdi-delete fs-14 text-danger" data-bs-toggle="tooltip"
                                                             data-bs-offset="0,4" data-bs-placement="right"
                                                             data-bs-html="true" title="Delete"></i>
-                                                    </a>
+                                                    </button>
                                                     </form>
                                                 </td>
                                             </tr>

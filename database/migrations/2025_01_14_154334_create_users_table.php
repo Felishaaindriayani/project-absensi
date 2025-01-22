@@ -23,7 +23,7 @@ return new class extends Migration
             $table->enum('jenis_kelamin', ['L', 'P'])->nullable();
             $table->string('tempat_lahir')->nullable();
             $table->date('tgl_lahir')->nullable();
-            $table->boolean('status_pegawai')->nullable();
+            $table->boolean('status_pegawai')->nullable()->default(0);
             $table->string('agama')->nullable();
             $table->text('alamat')->nullable();
             $table->string('profile')->nullable();

@@ -9,4 +9,8 @@ class jabatan extends Model
     protected $fillable = ['id', 'jabatan'];
     public $timestamps = true;
 
+    public function pegawai()
+    {
+        return $this->hasMany(User::class, 'id_jabatan');
+    }
 }

@@ -13,7 +13,9 @@ class PegawaiController extends Controller
      */
     public function index()
     {
-        $user = User::all();
+        $user = User::whereDoesntHave('roles', function ($query) {
+        $query->where('name', 'admin');
+        })->get();
         return view('admin.pegawai.index', compact('user'));
     }
 
@@ -22,7 +24,9 @@ class PegawaiController extends Controller
      */
     public function create()
     {
-        //
+        $users = User::all();
+        $jabatan = jabatan::all();
+        return view('admin.pegawai.create', compact('users','jabatan'));
     }
 
     /**
@@ -30,7 +34,32 @@ class PegawaiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $pegawai = new User();
+        $pegawai->name = $request->name;
+        $pegawai->email = $request->email;
+        $pegawai->password = $request->password;
+        $pegawai->id_jabatan = $request->id_jabatan;
+        $pegawai->nip = $request->nip;
+        $pegawai->telepon = $request->telepon;
+        $pegawai->jenis_kelamin = $request->jenis_kelamin;
+        $pegawai->tempat_lahir = $request->tempat_lahir;
+        $pegawai->tgl_lahir = $request->tgl_lahir;
+        $pegawai->status_pegawai = 0;
+        $pegawai->agama = $request->agama;
+        $pegawai->alamat = $request->alamat;
+    
+
+
+
+        if ($request->hasFile('profile')){
+            $img = $request->file('profile');
+            $name = rand(1000,9999) . $img->getClientOriginalName();
+            $img->move('images/pegawai', $name);
+            $pegawai->profile = $name;
+        }
+
+        $pegawai->save();
+        return redirect()->route('pegawai.index');
     }
 
     /**

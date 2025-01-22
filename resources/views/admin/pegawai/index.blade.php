@@ -19,6 +19,11 @@
                                 <div class="d-flex align-items-center">
                                     <h5 class="card-title text-black mb-0">Recent Order</h5>
                                 </div>
+                                 <div class="float-end">
+                                    <a href="{{route('pegawai.create')}}" class="btn btn-sm btn-primary" >
+                                        Add Pegawai
+                                    </a>
+                                </div>
                             </div>
 
                             <div class="card-body p-0">
@@ -43,13 +48,13 @@
                                                     <td>{{ $i++ }}</td>
                                                     <td>{{ $data->name }}</td>
                                                     <td>{{ $data->email }}</td>
-                                                    <td>{{ $data->jabatan }}</td>
+                                                    <td>{{ $data->jabatan->jabatan }}</td>
                                                     <td>{{ $data->nip }}</td>
                                                     <td>
                                                         @if ($data->status_pegawai == 1)
-                                                            <span class="badge bg-primary-subtle text-primary fw-semibold">— Pegawai Aktif —</span>
+                                                            <span class="badge bg-primary-subtle text-primary fw-semibold">Aktif</span>
                                                         @else
-                                                            <span class="badge bg-label-dark">— Pegawai Tidak Aktif —</span>
+                                                          <span class="badge bg-danger-subtle text-danger fw-semibold">Tidak Aktif</span>
                                                         @endif
                                                     </td>
                                                     

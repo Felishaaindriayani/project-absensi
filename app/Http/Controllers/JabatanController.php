@@ -33,7 +33,7 @@ class JabatanController extends Controller
         $jabatan = new Jabatan;
         $jabatan->jabatan = $request->jabatan;
         $jabatan->save();
-        return redirect()->route('admin.jabatan.index');
+        return redirect()->route('jabatan.index');
 
     }
 
@@ -62,7 +62,7 @@ class JabatanController extends Controller
         $jabatan = Jabatan::findOrFail($id);
         $jabatan->jabatan = $request->jabatan;
         $jabatan->save();
-        return redirect()->route('admin.jabatan.index');
+        return redirect()->route('jabatan.index');
     }
 
     /**
@@ -72,6 +72,6 @@ class JabatanController extends Controller
     {
         $jabatan = Jabatan::findOrFail($id);
         $jabatan->delete();
-        return redirect()->route('admin.jabatan.index');
+        return redirect()->route('jabatan.index');
     }
 }
