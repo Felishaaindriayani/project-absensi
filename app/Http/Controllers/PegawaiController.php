@@ -1,9 +1,9 @@
 <?php
-
 namespace App\Http\Controllers;
-use App\Models\User;
-use App\Models\jabatan;
 
+use App\Models\jabatan;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class PegawaiController extends Controller
@@ -13,10 +13,10 @@ class PegawaiController extends Controller
      */
     public function index()
     {
-        $user = User::whereDoesntHave('roles', function ($query) {
-        $query->where('name', 'admin');
+        $pegawai = User::whereDoesntHave('roles', function ($query) {
+            $query->where('name', 'admin');
         })->get();
-        return view('admin.pegawai.index', compact('user'));
+        return view('admin.pegawai.index', compact('pegawai'));
     }
 
     /**
@@ -24,9 +24,9 @@ class PegawaiController extends Controller
      */
     public function create()
     {
-        $users = User::all();
+        $pegawai   = User::all();
         $jabatan = jabatan::all();
-        return view('admin.pegawai.create', compact('users','jabatan'));
+        return view('admin.pegawai.create', compact('pegawai', 'jabatan'));
     }
 
     /**
@@ -34,26 +34,23 @@ class PegawaiController extends Controller
      */
     public function store(Request $request)
     {
-        $pegawai = new User();
-        $pegawai->name = $request->name;
-        $pegawai->email = $request->email;
-        $pegawai->password = $request->password;
-        $pegawai->id_jabatan = $request->id_jabatan;
-        $pegawai->nip = $request->nip;
-        $pegawai->telepon = $request->telepon;
-        $pegawai->jenis_kelamin = $request->jenis_kelamin;
-        $pegawai->tempat_lahir = $request->tempat_lahir;
-        $pegawai->tgl_lahir = $request->tgl_lahir;
+        $pegawai                 = new User();
+        $pegawai->name           = $request->name;
+        $pegawai->email          = $request->email;
+        $pegawai->password       = $request->password;
+        $pegawai->id_jabatan     = $request->id_jabatan;
+        $pegawai->nip            = $request->nip;
+        $pegawai->telepon        = $request->telepon;
+        $pegawai->jenis_kelamin  = $request->jenis_kelamin;
+        $pegawai->tempat_lahir   = $request->tempat_lahir;
+        $pegawai->tgl_lahir      = $request->tgl_lahir;
         $pegawai->status_pegawai = 0;
-        $pegawai->agama = $request->agama;
-        $pegawai->alamat = $request->alamat;
-    
+        $pegawai->agama          = $request->agama;
+        $pegawai->alamat         = $request->alamat;
 
-
-
-        if ($request->hasFile('profile')){
-            $img = $request->file('profile');
-            $name = rand(1000,9999) . $img->getClientOriginalName();
+        if ($request->hasFile('profile')) {
+            $img  = $request->file('profile');
+            $name = rand(1000, 9999) . $img->getClientOriginalName();
             $img->move('images/pegawai', $name);
             $pegawai->profile = $name;
         }
@@ -65,32 +62,71 @@ class PegawaiController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        $pegawai = User::findOrFail($id);
+        $jabatan = Jabatan::all();
+        return view('admin.pegawai.show', compact('pegawai', 'jabatan'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $pegawai   = User::findOrFail($id);
+        $jabatan = jabatan::all();
+        return view('admin.pegawai.edit', compact('pegawai', 'jabatan'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $pegawai                 = User::findOrFail($id);
+        $pegawai->name           = $request->name;
+        $pegawai->email          = $request->email;
+        $pegawai->password       = $request->password;
+        $pegawai->id_jabatan     = $request->id_jabatan;
+        $pegawai->nip            = $request->nip;
+        $pegawai->telepon        = $request->telepon;
+        $pegawai->jenis_kelamin  = $request->jenis_kelamin;
+        $pegawai->tempat_lahir   = $request->tempat_lahir;
+        $pegawai->tgl_lahir      = $request->tgl_lahir;
+        $pegawai->status_pegawai = $request->status_pegawai;
+        $pegawai->agama          = $request->agama;
+        $pegawai->alamat         = $request->alamat;
+
+        if ($request->hasFile('profile')) {
+            $img  = $request->file('profile');
+            $name = rand(1000, 9999) . $img->getClientOriginalName();
+            $img->move('images/pegawai', $name);
+            $pegawai->profile = $name;
+        }
+
+        $pegawai->save();
+        return redirect()->route('pegawai.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $pegawai = User::find($id);
+
+        if (! $pegawai) {
+            return redirect()->route('pegawai.index')->with('danger', 'Pegawai tidak ditemukan!');
+        }
+
+        if (Auth::user()->id !== $pegawai->id) {
+            $pegawai->delete();
+            return redirect()->route('pegawai.index')->with('danger', 'pegawai berhasil dihapus!');
+        }
+
+        return redirect()->route('pegawai.index')->with('danger', 'Anda tidak bisa menghapus diri sendiri!');
+
     }
+
 }

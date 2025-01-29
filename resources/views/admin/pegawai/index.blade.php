@@ -43,12 +43,12 @@
                                         </thead>
                                         <tbody class="table-border-bottom-0">
                                             @php $i=1; @endphp
-                                            @foreach ($user as $data)
+                                            @foreach ($pegawai as $data)
                                                 <tr>
                                                     <td>{{ $i++ }}</td>
                                                     <td>{{ $data->name }}</td>
                                                     <td>{{ $data->email }}</td>
-                                                    <td>{{ $data->jabatan->jabatan }}</td>
+                                                    <td>{{ $data->jabatan ? $data->jabatan->jabatan : 'Tidak ada jabatan' }}</td>
                                                     <td>{{ $data->nip }}</td>
                                                     <td>
                                                         @if ($data->status_pegawai == 1)
@@ -68,11 +68,17 @@
                                                             <i class="mdi mdi-pencil-outline fs-14 text-primary"></i>
 
                                                         </a>
-                                                        <a href="{{ route('pegawai.destroy', $data->id) }}"
+                                                        <a href="{{ route('pegawai.show', $data->id) }}" aria-label="anchor"
+                                                            class="btn btn-sm bg-warning-subtle me-1"
+                                                            data-bs-toggle="tooltip" data-bs-original-title="show">
+                                                            <i class="mdi mdi-eye-outline fs-14 text-warning"></i>
+
+                                                        </a>
+                                                        <button type="sumbit" onclick="confirm('hapus')"
                                                             aria-label="anchor" class="btn btn-sm bg-danger-subtle"
                                                             data-bs-toggle="tooltip" data-bs-original-title="Delete">
                                                             <i class="mdi mdi-delete fs-14 text-danger"></i>
-                                                        </a>
+                                                        </button>
                                                     </form>
                                                 </td>
                                                 </tr>

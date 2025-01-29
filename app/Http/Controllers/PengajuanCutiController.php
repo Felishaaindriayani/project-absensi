@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\pengajuan_cuti;
+use App\Models\User;
+
 use Illuminate\Http\Request;
 
 class PengajuanCutiController extends Controller
@@ -12,7 +14,8 @@ class PengajuanCutiController extends Controller
      */
     public function index()
     {
-        
+        $pengajuanCuti = Pengajuan_cuti::all();
+        return view('admin.pengajuanCuti.index', compact('pengajuanCuti'));
     }
 
     /**
@@ -20,7 +23,9 @@ class PengajuanCutiController extends Controller
      */
     public function create()
     {
-        //
+        $pengajuanCuti = pengajuan_cuti::all();
+        $pegawai = User::all();
+        return view('admin.pengajuanCuti.create', compact('pengajuanCuti', 'pegawai'));
     }
 
     /**
@@ -28,7 +33,18 @@ class PengajuanCutiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $pengajuanCuti             = new  Pengajuan_cuti();
+        $pengajuanCuti->id_user    = $request->id_user;
+        $pengajuanCuti->tanggal_pengajuan    = $request->tanggal_pengajuan;
+        $pengajuanCuti->kategori_cuti  = $request->kategori_cuti;
+        $pengajuanCuti->tanggal_mulai = $request->tanggal_mulai;
+        $pengajuanCuti->tanggal_selesai = $request->tanggal_selesai;
+        $pengajuanCuti->alasan = $request->alasan;
+        $pengajuanCuti->status     = 'menunggu';
+        
+
+        $pengajuanCuti->save();
+        return redirect()->route('pengajuanCuti.index');
     }
 
     /**

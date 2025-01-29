@@ -333,6 +333,12 @@
                                         <li>
                                             <a href="{{route('pegawai.index')}}" class="tp-link">Data Pegawai</a>
                                         </li>
+                                        <li>
+                                            <a href="{{route('absensi.index')}}" class="tp-link">Absensi</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{route('pengajuanCuti.index')}}" class="tp-link">Pengajuan Cuti</a>
+                                        </li>
                                     </ul>
                                 </div>
                             </li>

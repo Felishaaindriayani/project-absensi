@@ -16,10 +16,10 @@ return new class extends Migration
             $table->unsignedBigInteger('id_user');
             $table->date('tanggal_pengajuan');
             $table->enum('kategori_cuti', ['izin', 'cuti']);
-            $table->time('tanggal_mulai');
-            $table->time('tanggal_selesai');
+            $table->date('tanggal_mulai');
+            $table->date('tanggal_selesai');
             $table->text('alasan');
-            $table->enum('status', ['menyetujui', 'tidak menyetujui']);
+            $table->enum('status', ['menunggu','menyetujui', 'tidak_menyetujui'])->default('menunggu');
             $table->timestamps();
 
             $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');

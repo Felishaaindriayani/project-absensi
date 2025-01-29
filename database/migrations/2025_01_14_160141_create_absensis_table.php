@@ -17,9 +17,9 @@ return new class extends Migration
             $table->date('tanggal');
             $table->time('jam_masuk')->nullable();
             $table->time('jam_keluar')->nullable();
-            $table->enum('status', ['Hadir', 'Sakit'])->default('Hadir');
-            $table->integer('jam_kerja')->nullable();
-            $table->string('photo');
+            $table->enum('status', ['Hadir', 'Sakit'])->nullable()->default('Hadir');
+            $table->string('jam_kerja')->nullable();
+            $table->string('photo')->nullable();
             $table->timestamps();
 
             $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
