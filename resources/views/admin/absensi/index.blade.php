@@ -54,10 +54,10 @@
                                                     <td>
                                                         @if ($data->status == 'Hadir')
                                                             <span
-                                                                class="badge bg-primary-subtle text-primary fw-semibold">Hadir</span>
+                                                                class="badge bg-primary-subtle text-primary fw-semibold" style="font-size: 0.75rem; padding: 5px 5px; border-radius: 3px;">Hadir</span>
                                                         @else
                                                             <span
-                                                                class="badge bg-danger-subtle text-danger fw-semibold">Sakit</span>
+                                                                class="badge bg-danger-subtle text-danger fw-semibold" style="font-size: 0.75rem; padding: 5px 5px; border-radius: 3px;">Sakit</span>
                                                         @endif
                                                     </td>
                                                     <td>{{ $data->jam_kerja}}</td>

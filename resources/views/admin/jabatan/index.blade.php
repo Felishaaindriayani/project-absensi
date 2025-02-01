@@ -94,7 +94,7 @@
                                                         <div class="modal-body">
                                                             <div class="mb-3">
                                                                 <label for="jabatan" class="form-label">Nama Jabatan</label>
-                                                                <input type="text" class="form-control" name="jabatan" value="{{ $data->jabatan }}"
+                                                                <input type="text" class="form-control" name="jabatan" value="{{ old('jabatan', $data->jabatan )}}"
                                                                 required>
                                                             </div>
                                                         </div>

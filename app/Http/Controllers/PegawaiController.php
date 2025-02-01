@@ -16,7 +16,8 @@ class PegawaiController extends Controller
         $pegawai = User::whereDoesntHave('roles', function ($query) {
             $query->where('name', 'admin');
         })->get();
-        return view('admin.pegawai.index', compact('pegawai'));
+        $jabatan = Jabatan::all();
+        return view('admin.pegawai.index', compact('pegawai','jabatan'));
     }
 
     /**

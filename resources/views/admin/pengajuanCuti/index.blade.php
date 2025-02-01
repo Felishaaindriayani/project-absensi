@@ -58,16 +58,16 @@
                                                     <td>
                                                         @if ($data->status === 'menyetujui')
                                                             <span class="badge bg-info text-dark"
-                                                                style="font-weight: bold;">—
-                                                                Menyetujui —</span>
+                                                                style="font-size: 0.75rem; padding: 5px 5px; border-radius: 3px;"">
+                                                                Menyetujui </span>
                                                         @elseif ($data->status === 'tidak_menyetujui')
                                                             <span class="badge bg-danger text-white"
-                                                                style="font-weight: bold;">—
-                                                                Tidak Menyetujui —</span>
+                                                                style="font-size: 0.75rem; padding: 5px 5px; border-radius: 3px;"">
+                                                                Tidak Menyetujui </span>
                                                         @else
-                                                            <span class="badge bg-dark text-white"
-                                                                style="font-weight: bold;">—
-                                                                Menunggu Konfirmasi —</span>
+                                                            <span class="badge bg-warning text-white"
+                                                                style="font-size: 0.75rem; padding: 5px 5px; border-radius: 3px;"">
+                                                                Menunggu Konfirmasi </span>
                                                         @endif
                                                     </td>
 

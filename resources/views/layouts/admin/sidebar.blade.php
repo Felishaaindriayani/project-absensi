@@ -343,7 +343,7 @@
                                 </div>
                             </li>
 
-                            <li>
+                            {{-- <li>
                                 <a href="#sidebarCharts" data-bs-toggle="collapse">
                                     <i data-feather="pie-chart"></i>
                                     <span> Apex Charts </span>
@@ -407,7 +407,7 @@
                                         </li>
                                     </ul>
                                 </div>
-                            </li>
+                            </li> --}}
 
                             {{-- <li>
                                 <a href="#sidebarMaps" data-bs-toggle="collapse">

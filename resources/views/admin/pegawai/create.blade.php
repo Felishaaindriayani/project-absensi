@@ -30,10 +30,11 @@
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <form action="{{ route('pegawai.store') }} " method="POST"
-                                            enctype="multipart/form-data">
+                                            enctype="multipart/form-data" class="w-100">
                                             @csrf
                                             <div class="mb-4">
-                                                <label for="name" class=" block text-sm font-medium text-gray-700">Name</label>
+                                                <label for="name"
+                                                    class=" block text-sm font-medium text-gray-700">Name</label>
                                                 <input id="name" type="text"
                                                     class="form-control @error('name') is-invalid @enderror" name="name"
                                                     required>
@@ -45,130 +46,102 @@
                                             </div>
 
                                             <div class="mb-4">
-                                                <label for="email" class="from-label block text-sm font-medium text-gray-700">Email</label>
-                                                    <input id="email" type="email" name="email" class="form-control mt-1 block w-full px-4 py-2 border rounded-md shadow-sm">
-                                                    @error('email')
-                                                        <strong>{{ $message }}</strong>
-                                                    @enderror
+                                                <label for="email"
+                                                    class="from-label block text-sm font-medium text-gray-700">Email</label>
+                                                <input id="email" type="email" name="email"
+                                                    class="form-control mt-1 block w-full px-4 py-2 border rounded-md shadow-sm">
+                                                @error('email')
+                                                    <strong>{{ $message }}</strong>
+                                                @enderror
                                             </div>
 
 
                                             <div class="mb-4">
-                                                <label for="password" class="from-label block text-sm font-medium text-gray-700">password</label>
-                                                    <input id="password" type="password" name="password" class="form-control mt-1 block w-full px-4 py-2 border rounded-md shadow-sm">
-                                                    @error('password')
-                                                        <strong>{{ $message }}</strong>
-                                                    @enderror
+                                                <label for="password"
+                                                    class="from-label block text-sm font-medium text-gray-700">password</label>
+                                                <input id="password" type="password" name="password"
+                                                    class="form-control mt-1 block w-full px-4 py-2 border rounded-md shadow-sm">
+                                                @error('password')
+                                                    <strong>{{ $message }}</strong>
+                                                @enderror
                                             </div>
                                             <hr class="my-4">
-                            <p class="text-lg font-semibold text-gray-800 mb-4">Biodata Karyawan</p>
 
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                            <div>
-                                                <label for="jabatan" class="block text-sm font-medium text-gray-700">Jabatan</label>
-                                                <select id="jabatan" type="text" class="form-control mt-1 block w-full px-4 py-2 border rounded-md shadow-sm" name="id_jabatan">
-                                                    @foreach ($jabatan as $data)
-                                                        <option value="{{ $data->id }}">{{ $data->jabatan }}</option>
-                                                    @endforeach
-                                                </select>
+                                            <p class="text-lg font-semibold text-gray-800 mb-4">Biodata Karyawan</p>
 
+                                            <div class="row g-4">
+                                                <div class="col-md-6">
+                                                    <label for="jabatan"
+                                                        class="block text-sm font-medium text-gray-700">Jabatan</label>
+                                                    <select id="jabatan" name="id_jabatan" class="form-control">
+                                                        @foreach ($jabatan as $data)
+                                                            <option value="{{ $data->id }}">{{ $data->jabatan }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <label for="nip"
+                                                        class="block text-sm font-medium text-gray-700">NIP</label>
+                                                    <input id="nip" type="text" class="form-control" name="nip"
+                                                        required>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <label for="telepon"
+                                                        class="block text-sm font-medium text-gray-700">Telepon</label>
+                                                    <input id="telepon" type="text" class="form-control" name="telepon"
+                                                        required>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <label for="jenis_kelamin"
+                                                        class="block text-sm font-medium text-gray-700">Jenis
+                                                        Kelamin</label>
+                                                    <select id="jenis_kelamin" name="jenis_kelamin" class="form-control">
+                                                        <option value="L">Laki-laki</option>
+                                                        <option value="P">Perempuan</option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <label for="tempat_lahir"
+                                                        class="block text-sm font-medium text-gray-700">Tempat Lahir</label>
+                                                    <input id="tempat_lahir" type="text" class="form-control"
+                                                        name="tempat_lahir" required>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <label for="tgl_lahir"
+                                                        class="block text-sm font-medium text-gray-700">Tanggal
+                                                        Lahir</label>
+                                                    <input id="tgl_lahir" type="date" class="form-control"
+                                                        name="tgl_lahir" required>
+                                                </div>
+
+
+                                                <div class="col-md-6">
+                                                    <label for="agama"
+                                                        class="block text-sm font-medium text-gray-700">Agama</label>
+                                                    <select id="agama" name="agama" class="form-control">
+                                                        <option value="Islam">Islam</option>
+                                                        <option value="Kristen">Kristen</option>
+                                                        <option value="Katolik">Katolik</option>
+                                                        <option value="Budha">Budha</option>
+                                                        <option value="Hindu">Hindu</option>
+                                                        <option value="Konghuchu">Konghuchu</option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <label for="alamat"
+                                                        class="block text-sm font-medium text-gray-700">Alamat</label>
+                                                    <input id="alamat" type="text" class="form-control"
+                                                        name="alamat" required>
+                                                </div>
                                             </div>
 
-                                            <div>
-                                                <label for="nip" class="block text-sm font-medium text-gray-700">Nip</label>
-                                                <input id="nip" type="text"
-                                                    class="form-control @error('nip') is-invalid @enderror" name="nip"
-                                                    required>
-                                                @error('nip')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-
-
-                                            <div>
-                                                <label for="telepon" class=" block text-sm font-medium text-gray-700">Telepon</label>
-                                                <input id="telepon" type="text"
-                                                    class="form-control @error('telepon') is-invalid @enderror"
-                                                    name="telepon" required>
-                                                @error('telepon')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                       
-
-
-                                    
-                                            <div>
-                                                <label class=" block text-sm font-medium text-gray-700">Jenis Kelamin</label>
-                                                <select id="jenis_kelamin" name="jenis_kelamin" required
-                                                    class="mt-1 block w-full px-4 py-2 border rounded-md shadow-sm">
-                                                    <option value="L">Laki-laki</option>
-                                                    <option value="P">Perempuan</option>
-                                                </select>
-                                                @error('jenis_kelamin')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-
-                                            <div>
-                                                <label class=" block text-sm font-medium text-gray-700">Tempat Lahir</label>
-                                                <input type="text"
-                                                    class="form-control @error('tempat_lahir') is-invalid @enderror"
-                                                    name="tempat_lahir" required>
-                                                @error('tempat_lahir')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-
-
-                                            <div>
-                                                <label class=" block text-sm font-medium text-gray-700">Tanggal Lahir</label>
-                                                <input type="date"
-                                                    class="form-control @error('tgl_lahir') is-invalid @enderror"
-                                                    name="tgl_lahir" required>
-                                                @error('tgl_lahir')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-
-                                            <div>
-                                                <label for="agama"
-                                                    class="block text-sm font-medium text-gray-700">Agama</label>
-                                                <select id="agama" name="agama" required
-                                                    class="mt-1 block w-full px-4 py-2 border rounded-md shadow-sm">
-                                                    <option value="Islam">Islam</option>
-                                                    <option value="Kristen">Kristen</option>
-                                                    <option value="Katolik">Katolik</option>
-                                                    <option value="Budha">Budha</option>
-                                                    <option value="Hindu">Hindu</option>
-                                                    <option value="Konghuchu">Konghuchu</option>
-                                                </select>
-                                                @error('agama')
-                                                    <p class="text-sm text-red-500 mt-1">{{ $message }}</p>
-                                                @enderror
-                                            </div>
-
-                                            <div class="mb-4">
-                                                <label class=" block text-sm font-medium text-gray-700">Alamat</label>
-                                                <input type="text"
-                                                    class="form-control @error('alamat') is-invalid @enderror"
-                                                    name="alamat" required>
-                                                @error('alamat')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
 
 
                                             <div class="mb-4">
@@ -180,13 +153,13 @@
                                             <a href="{{ route('pegawai.index') }} " class="btn btn-primary">Back</a>
                                             <button type="submit" class="btn btn-primary">Save</button>
 
+                                    </div>
                                 </div>
-                            </div>
 
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
         </div>
     @endsection
