@@ -36,9 +36,6 @@
                                             @else
                                                 <p>No photo available</p>
                                             @endif
-                                            <span class="sil-profile_main-pic-change img-thumbnail">
-                                                <i class="mdi mdi-camera text-white"></i>
-                                            </span>
                                         </div>
                                         <div class="overflow-hidden ms-md-4 ms-0">
                                             <h4 class="m-0 text-dark fs-20 mt-2 mt-md-0">{{ $pegawai->name }}</h4>
@@ -62,11 +59,23 @@
                                 <div class="tab-pane pt-4" id="profile_experience" role="tabpanel">
                                     <div class="row">
 
-                                        <div class="col-md-12 col-sm-12 col-lg-6">
-                                            <h5 class="fs-16 text-dark fw-semibold mb-3 text-capitalize">Biodata Pegawai
-                                            </h5>
+                                        <div class="card-header">
+                                            <div class="d-flex align-items-center">
+                                                <h5 class="card-title text-black mb-0">Bioadata pegawai</h5>
+                                            </div>
+                                            <div class="float-end">
+                                                <a href="javascript:void(0)"
+                                                    aria-label="anchor"class="btn btn-sm bg-primary-subtle me-1"
+                                                    data-bs-toggle="modal" data-bs-target="#editModal{{ $pegawai->id }}"
+                                                    style="padding-left: 20px; padding-right: 20px; padding-top: 7px; padding-bottom: 7px">
+                                                    <i class="mdi mdi-pencil-outline fs-14 text-primary"
+                                                        data-bs-toggle="tooltip" data-bs-offset="0,4"
+                                                        data-bs-placement="left" data-bs-html="true" title="Update"></i>
+                                                </a>
+                                            </div>
                                         </div>
 
+                                        <hr>
                                         <div class="row">
                                             <div class="col-md-6 col-sm-6 col-lg-6">
                                                 <ol class="profile-section list-unstyled mb-md-0 px-4">
@@ -124,16 +133,8 @@
                                                             </div>
                                                         </div>
                                                         <div class="exper-item-list">
-                                                            <h5 class="font-size-16 mb-1">Jenis Kelamin</h5>
-                                                            <p class="font-size-15">
-                                                                @if ($pegawai->jenis_kelamin == 'L')
-                                                                    Laki-laki
-                                                                @elseif($pegawai->jenis_kelamin == 'P')
-                                                                    Perempuan
-                                                                @else
-                                                                    Tidak Diketahui
-                                                                @endif
-                                                            </p>
+                                                            <h5 class="font-size-16 mb-1">Jabatan</h5>
+                                                            <p class="font-size-15">{{ $pegawai->jabatan->jabatan }}</p>
                                                         </div>
                                                     </li>
 
@@ -252,7 +253,15 @@
                                                         </div>
                                                         <div class="exper-item-list">
                                                             <h5 class="font-size-16 mb-1">Jenis Kelamin</h5>
-                                                            <p class="font-size-15">{{ $pegawai->jenis_kelamin }}</p>
+                                                            <p class="font-size-15">
+                                                                @if ($pegawai->jenis_kelamin == 'L')
+                                                                    Laki-laki
+                                                                @elseif($pegawai->jenis_kelamin == 'P')
+                                                                    Perempuan
+                                                                @else
+                                                                    Tidak Diketahui
+                                                                @endif
+                                                            </p>
                                                         </div>
                                                     </li>
 
@@ -314,28 +323,167 @@
                     </div>
                 </div>
 
-            </div>
+                <!-- Modals -->
+                <div class="modal fade bs-example-modal-center" id="editModal{{ $pegawai->id }}" tabindex="-1"
+                    role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Edit Data Pegawai</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="{{ route('pegawai.update', $pegawai->id) }}" method="POST"
+                                    enctype="multipart/form-data">
+                                    @csrf
+                                    @method('PUT')
 
-        </div>
-    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">Nama</label>
+                                            <input type="text" value="{{ old('name', $pegawai->name) }}"
+                                                class="form-control @error('name') is-invalid @enderror" name="name"
+                                                required>
+                                            @error('name')
+                                                <span class="invalid-feedback"><strong>{{ $message }}</strong></span>
+                                            @enderror
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">Email</label>
+                                            <input type="email" value="{{ old('email', $pegawai->email) }}"
+                                                name="email" class="form-control">
+                                        </div>
+                                    </div>
 
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">Password</label>
+                                            <input type="password" name="password" class="form-control">
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">Jabatan</label>
+                                            <select name="id_jabatan" class="form-control">
+                                                <option selected disabled>-- Pilih Jabatan --</option>
+                                                @foreach ($jabatan as $data)
+                                                    <option value="{{ $data->id }}"
+                                                        {{ $data->id == $pegawai->id_jabatan ? 'selected' : '' }}>
+                                                        {{ $data->jabatan }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
 
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">NIP</label>
+                                            <input type="text" value="{{ old('nip', $pegawai->nip) }}"
+                                                class="form-control @error('nip') is-invalid @enderror" name="nip"
+                                                required>
+                                            @error('nip')
+                                                <span class="invalid-feedback"><strong>{{ $message }}</strong></span>
+                                            @enderror
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">Telepon</label>
+                                            <input type="text" value="{{ old('telepon', $pegawai->telepon) }}"
+                                                class="form-control @error('telepon') is-invalid @enderror" name="telepon"
+                                                required>
+                                            @error('telepon')
+                                                <span class="invalid-feedback"><strong>{{ $message }}</strong></span>
+                                            @enderror
+                                        </div>
+                                    </div>
 
-    <!-- Footer Start -->
-    <footer class="footer">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col fs-13 text-muted text-center">
-                    &copy;
-                    <script>
-                        document.write(new Date().getFullYear())
-                    </script> - Made with <span class="mdi mdi-heart text-danger"></span> by <a
-                        href="#!" class="text-reset fw-semibold">Zoyothemes</a>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">Jenis Kelamin</label>
+                                            <select name="jenis_kelamin" class="form-control">
+                                                <option value="L"
+                                                    {{ $pegawai->jenis_kelamin == 'L' ? 'selected' : '' }}>Laki-Laki
+                                                </option>
+                                                <option value="P"
+                                                    {{ $pegawai->jenis_kelamin == 'P' ? 'selected' : '' }}>Perempuan
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">Tempat Lahir</label>
+                                            <input type="text"
+                                                value="{{ old('tempat_lahir', $pegawai->tempat_lahir) }}"
+                                                class="form-control @error('tempat_lahir') is-invalid @enderror"
+                                                name="tempat_lahir" required>
+                                            @error('tempat_lahir')
+                                                <span class="invalid-feedback"><strong>{{ $message }}</strong></span>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">Tanggal Lahir</label>
+                                            <input type="date" value="{{ old('tgl_lahir', $pegawai->tgl_lahir) }}"
+                                                class="form-control @error('tgl_lahir') is-invalid @enderror"
+                                                name="tgl_lahir" required>
+                                            @error('tgl_lahir')
+                                                <span class="invalid-feedback"><strong>{{ $message }}</strong></span>
+                                            @enderror
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">Agama</label>
+                                            <select name="agama" class="form-control">
+                                                <option value="Islam">Islam</option>
+                                                <option value="Kristen">Kristen</option>
+                                                <option value="Katolik">Katolik</option>
+                                                <option value="Budha">Budha</option>
+                                                <option value="Hindu">Hindu</option>
+                                                <option value="Konghuchu">Konghuchu</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12 mb-3">
+                                            <label class="form-label">Alamat</label>
+                                            <input type="text" value="{{ old('alamat', $pegawai->alamat) }}"
+                                                class="form-control @error('alamat') is-invalid @enderror" name="alamat"
+                                                required>
+                                            @error('alamat')
+                                                <span class="invalid-feedback"><strong>{{ $message }}</strong></span>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">Status Pegawai</label>
+                                            <select name="status_pegawai" class="form-control">
+                                                <option value="1"
+                                                    {{ $pegawai->status_pegawai == 1 ? 'selected' : '' }}>Aktif</option>
+                                                <option value="0"
+                                                    {{ $pegawai->status_pegawai == 0 ? 'selected' : '' }}>Tidak Aktif
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">Profile</label>
+                                            <input type="file" name="profile" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex justify-content-end">
+                                        <button type="button" class="btn btn-secondary me-2"
+                                            data-bs-dismiss="modal">Tutup</button>
+                                        <button type="submit" class="btn btn-primary">Simpan</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
             </div>
         </div>
-    </footer>
-    <!-- end Footer -->
-
     </div>
 @endsection
