@@ -3,7 +3,7 @@
     <head>
 
         <meta charset="utf-8" />
-        <title>Shared on THEMELOCK.COM - Log In | Silva - Responsive Admin Dashboard Template</title>
+        <title>Workcheck</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc."/>
         <meta name="author" content="Zoyothemes"/>
@@ -35,13 +35,13 @@
                                         <div class="mb-0 border-0 p-md-5 p-lg-0 p-4">
                                             <div class="mb-4 p-0 text-center">
                                                 <a href="index.html" class="auth-logo">
-                                                    <img src="{{asset('admin/assets/images/logo-dark.png')}}" alt="logo-dark" class="mx-auto" height="28" />
+                                                    {{-- <img src="{{asset('admin/assets/images/logo-dark.png')}}" alt="logo-dark" class="mx-auto" height="28" /> --}}
                                                 </a>
                                             </div>
 
                                             <div class="auth-title-section mb-3 text-center"> 
                                                 <h3 class="text-dark fs-20 fw-medium mb-2">Welcome back</h3>
-                                                <p class="text-dark text-capitalize fs-14 mb-0">Sign in to continue to silve.</p>
+                                                <p class="text-dark text-capitalize fs-14 mb-0">Sign in to continue to smart absen.</p>
                                             </div>
 
                                              <form method="POST" action="{{ route('login')}}" class="my-4">

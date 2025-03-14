@@ -4,7 +4,7 @@
     <head>
 
         <meta charset="utf-8" />
-        <title>Shared on THEMELOCK.COM - Dashboard | Silva - Responsive Admin Dashboard Template</title>
+        <title>WorkCheck</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc."/>
         <meta name="author" content="Zoyothemes"/>
@@ -68,6 +68,8 @@
 
     <!-- App js-->
     <script src="{{asset('admin/assets/js/app.js')}}"></script>
+
+    @include('sweetalert::alert')
 
     </body>
 </html>

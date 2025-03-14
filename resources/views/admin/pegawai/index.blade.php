@@ -66,13 +66,13 @@
                                                             method="POST">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <a href="{{ route('pegawai.edit', $data->id) }}"
+                                                            {{-- <a href="{{ route('pegawai.edit', $data->id) }}"
                                                                 aria-label="anchor"
                                                                 class="btn btn-sm bg-primary-subtle me-1"
                                                                 data-bs-toggle="tooltip" data-bs-original-title="Edit">
                                                                 <i class="mdi mdi-pencil-outline fs-14 text-primary"></i>
 
-                                                            </a>
+                                                            </a> --}}
                                                             <a href="{{ route('pegawai.show', $data->id) }}"
                                                                 aria-label="anchor"
                                                                 class="btn btn-sm bg-warning-subtle me-1"
@@ -95,10 +95,9 @@
                                                     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
                                                     aria-hidden="true">
                                                     <div class="modal-dialog modal-lg modal-dialog-centered">
-                                                        <!-- Ubah jadi modal-lg -->
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title">Tambah Data Pegawai</h5>
+                                                                 <h5 class="modal-title">Tambah Data Pegawai</h5>
                                                                 <button type="button" class="btn-close"
                                                                     data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
@@ -107,7 +106,6 @@
                                                                     enctype="multipart/form-data">
                                                                     @csrf
                                                                     <div class="row">
-                                                                        <!-- Nama -->
                                                                         <div class="col-md-6 mb-3">
                                                                             <label for="name"
                                                                                 class="form-label">Nama</label>
@@ -115,7 +113,6 @@
                                                                                 name="name" class="form-control"
                                                                                 required>
                                                                         </div>
-                                                                        <!-- Email -->
                                                                         <div class="col-md-6 mb-3">
                                                                             <label for="email"
                                                                                 class="form-label">Email</label>
@@ -126,7 +123,6 @@
                                                                     </div>
 
                                                                     <div class="row">
-                                                                        <!-- Password -->
                                                                         <div class="col-md-6 mb-3">
                                                                             <label for="password"
                                                                                 class="form-label">Password</label>
@@ -134,7 +130,6 @@
                                                                                 name="password" class="form-control"
                                                                                 required>
                                                                         </div>
-                                                                        <!-- Jabatan -->
                                                                         <div class="col-md-6 mb-3">
                                                                             <label for="jabatan"
                                                                                 class="form-label">Jabatan</label>
@@ -149,7 +144,6 @@
                                                                     </div>
 
                                                                     <div class="row">
-                                                                        <!-- NIP -->
                                                                         <div class="col-md-6 mb-3">
                                                                             <label for="nip"
                                                                                 class="form-label">NIP</label>
@@ -157,7 +151,6 @@
                                                                                 name="nip" class="form-control"
                                                                                 required>
                                                                         </div>
-                                                                        <!-- Telepon -->
                                                                         <div class="col-md-6 mb-3">
                                                                             <label for="telepon"
                                                                                 class="form-label">Telepon</label>
@@ -168,7 +161,6 @@
                                                                     </div>
 
                                                                     <div class="row">
-                                                                        <!-- Jenis Kelamin -->
                                                                         <div class="col-md-6 mb-3">
                                                                             <label for="jenis_kelamin"
                                                                                 class="form-label">Jenis Kelamin</label>
@@ -178,7 +170,6 @@
                                                                                 <option value="P">Perempuan</option>
                                                                             </select>
                                                                         </div>
-                                                                        <!-- Tempat Lahir -->
                                                                         <div class="col-md-6 mb-3">
                                                                             <label for="tempat_lahir"
                                                                                 class="form-label">Tempat Lahir</label>
@@ -189,7 +180,6 @@
                                                                     </div>
 
                                                                     <div class="row">
-                                                                        <!-- Tanggal Lahir -->
                                                                         <div class="col-md-6 mb-3">
                                                                             <label for="tgl_lahir"
                                                                                 class="form-label">Tanggal Lahir</label>
@@ -197,7 +187,6 @@
                                                                                 name="tgl_lahir" class="form-control"
                                                                                 required>
                                                                         </div>
-                                                                        <!-- Agama -->
                                                                         <div class="col-md-6 mb-3">
                                                                             <label for="agama"
                                                                                 class="form-label">Agama</label>
@@ -215,7 +204,6 @@
                                                                     </div>
 
                                                                     <div class="row">
-                                                                        <!-- Alamat -->
                                                                         <div class="col-md-12 mb-3">
                                                                             <label for="alamat"
                                                                                 class="form-label">Alamat</label>
@@ -225,7 +213,7 @@
                                                                         </div>
                                                                     </div>
 
-                                                                    <!-- Foto Profile -->
+
                                                                     <div class="mb-3">
                                                                         <label class="form-label">Profile</label>
                                                                         <input type="file" name="profile"

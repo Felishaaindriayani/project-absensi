@@ -1,10 +1,12 @@
 <?php
 namespace App\Http\Controllers;
-use App\Models\User;
-use App\Models\absensi;
-use Illuminate\Support\Facades\Auth;
 
+use Alert;
+use App\Models\absensi;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AbsensiController extends Controller
 {
@@ -13,8 +15,19 @@ class AbsensiController extends Controller
      */
     public function index()
     {
-        $absensi = Absensi::all();
-        return view('admin.absensi.index', compact('absensi'));
+        if (auth()->user()->hasRole('admin')) {
+            $absensis = Absensi::with('pegawai')->get();
+        } else {
+            $absensis = Absensi::where('id_user', auth()->user()->id)->with('pegawai')->get();
+        }
+
+        $check_absen = Absensi::whereDate('tanggal', Carbon::now('Asia/Jakarta')->format('Y-m-d'))
+            ->where('id_user', auth()->user()->id)
+            ->first();
+
+        $hasAbsensi = $absensis->isNotEmpty();
+
+        return view('admin.absensi.index', compact('absensis', 'check_absen', 'hasAbsensi'));
     }
 
     /**
@@ -22,9 +35,11 @@ class AbsensiController extends Controller
      */
     public function create()
     {
-        $absensi = Absensi::all();
-        $pegawai = User::all();
-        return view('admin.absensi.create', compact('absensi', 'pegawai'));
+        $check_absen = Absensi::whereDate('tanggal', Carbon::now('Asia/Jakarta')->format('Y-m-d'))
+            ->where('id_user', auth()->user()->id)
+            ->first();
+
+        return view('absensi.create', compact('check_absen'));
     }
 
     /**
@@ -32,40 +47,77 @@ class AbsensiController extends Controller
      */
     public function store(Request $request)
     {
-        $absensi             = new Absensi();
-        $absensi->id_user    = $request->id_user;
-        $absensi->tanggal    = $request->tanggal;
-        $absensi->jam_masuk  = $request->jam_masuk;
-        $absensi->jam_keluar = $request->jam_keluar;
-        $absensi->status     = 'Hadir';
-        $absensi->jam_kerja  = $request->jam_kerja;
+        $request->validate([
+            'photo' => 'nullable|mimes:jpg,jpeg,png,pdf|max:2048',
+        ]);
 
-        $absensi->save();
-        return redirect()->route('absensi.index');
-    }
+        $currentTime    = Carbon::now('Asia/Jakarta');
+        $jamMasukBatas  = Carbon::createFromTime(7, 0, 0, 'Asia/Jakarta');
+        $jamPulangBatas = Carbon::createFromTime(9, 0, 0, 'Asia/Jakarta');
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(absensi $absensi)
-    {
-        //
-    }
+        $absensi = Absensi::where('id_user', auth()->user()->id)
+            ->whereDate('tanggal', $currentTime->format('Y-m-d'))
+            ->first();
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(absensi $absensi)
-    {
-        //
-    }
+        if ($request->status == 'sakit' && $absensi) {
+            Alert::success('Kamu sudah absen hari ini, tidak bisa memilih absen sakit.', 'error');
+            return redirect()->back();
+        }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, absensi $absensi)
-    {
-        //
+        if ($request->status == 'sakit') {
+            if ($request->hasFile('photo')) {
+                $file     = $request->file('photo');
+                $filename = 'photo_' . auth()->user()->id . '_' . time() . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('uploads/photo'), $filename);
+            }
+
+            $absensi          = new Absensi;
+            $absensi->id_user = auth()->user()->id;
+            $absensi->tanggal = $currentTime->format('Y-m-d');
+            $absensi->status  = 'Sakit';
+            $absensi->photo   = $filename ?? null;
+            $absensi->save();
+
+            Alert::success('Absen sakit berhasil.', 'success');
+            return redirect()->route('absensi.index');
+        }
+
+        if ($request->status == 'checkin') {
+            if ($absensi) {
+                Alert::success('Kamu sudah absen hari ini.', 'error');
+                return redirect()->back();
+            }
+
+            $isLate = $currentTime->gt(Carbon::createFromTime(07, 0, 0, 'Asia/Jakarta'));
+
+            $absensi            = new Absensi;
+            $absensi->id_user   = auth()->user()->id;
+            $absensi->tanggal   = $currentTime->format('Y-m-d');
+            $absensi->jam_masuk = $currentTime->format('H:i:s');
+            $absensi->status    = $isLate ? 'Terlambat' : 'Hadir';
+            $absensi->save();
+
+            Alert::success('Check-in berhasil.', 'success');
+            return redirect()->back();
+        } else {
+            if ($currentTime->lessThan($jamPulangBatas)) {
+            Alert::success('Anda belum bisa absen pulang sebelum jam 17:00.', 'error');
+            return redirect()->back();
+            }
+        }
+
+        if ($absensi) {
+            $jamMasuk    = Carbon::parse($absensi->jam_masuk, 'Asia/Jakarta');
+            $jamKeluar   = $currentTime;
+            $durasiKerja = $jamMasuk->diff($jamKeluar);
+
+            $absensi->jam_keluar = $jamKeluar->format('H:i:s');
+            $absensi->jam_kerja  = $durasiKerja->h . ' jam ' . $durasiKerja->i . ' menit';
+            $absensi->save();
+
+            Alert::success('Check-out berhasil.', 'success');
+            return redirect()->back();
+        }
     }
 
     /**
@@ -73,8 +125,9 @@ class AbsensiController extends Controller
      */
     public function destroy($id)
     {
-        $absensi = absensi::findOrFail($id);
+        $absensi = Absensi::findOrFail($id);
         $absensi->delete();
         return redirect()->route('absensi.index');
     }
 }
+

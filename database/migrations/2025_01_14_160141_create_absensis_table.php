@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('absensis', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_user')->nullable();
-            $table->date('tanggal');
+            $table->date('tanggal')->nullable();
             $table->time('jam_masuk')->nullable();
             $table->time('jam_keluar')->nullable();
-            $table->enum('status', ['Hadir', 'Sakit'])->nullable()->default('Hadir');
+            $table->enum('status', ['Hadir','Terlambat','Sakit'])->nullable()->default('Hadir');
             $table->string('jam_kerja')->nullable();
             $table->string('photo')->nullable();
             $table->timestamps();

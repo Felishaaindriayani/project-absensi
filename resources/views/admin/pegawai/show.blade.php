@@ -15,7 +15,7 @@
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Components</a></li>
                             <li class="breadcrumb-item active">Profile</li>
                         </ol>
-                    </div>
+                    </div> 
                 </div>
 
                 <div class="row">

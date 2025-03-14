@@ -17,22 +17,31 @@ class AdminSeeder extends Seeder
      */
      public function run(): void
      {
-        $create_user = Permission::create(['name' => 'create_user']);
-        $edit_user = Permission::create(['name' => 'edit_user']);
-        $read_user = Permission::create(['name' => 'read_user']);
-        $delete_user = Permission::create(['name' => 'delete_user']);
+        $create_user = Permission::firstOrCreate(['name' => 'create_user']);
+        $edit_user = Permission::firstOrCreate(['name' => 'edit_user']);
+        $read_user = Permission::firstOrCreate(['name' => 'read_user']);
+        $delete_user = Permission::firstOrCreate(['name' => 'delete_user']);
 
-        $user = Role::create(['name' => 'user']);
-        $admin = Role::create(['name' => 'admin']);
-        $kepsek = Role::create(['name' => 'kepsek']);
+        $create_kehadiran = Permission::firstOrCreate(['name' => 'create_kehadiran']);
+        $read_kehadiran = Permission::firstOrCreate(['name' => 'read_kehadiran']);
 
-        $user = User::create([
+        $admin = Role::firstOrCreate(['name' => 'admin']);
+        $admin->syncPermissions([$create_user, $read_user, $edit_user, $delete_user, $read_kehadiran]);
+
+        $user = Role::firstOrCreate(['name' => 'user']);
+        $user->syncPermissions([$create_kehadiran, $read_kehadiran, $read_user]);
+
+        $user = User::firstOrCreate([
             'name' => 'admin',
             'email' => 'admin@gmail.com',
             'password' => Hash::make('12345678'),
         ]);
 
-        $user->assignRole('admin');
+        if (!$user->hasRole('admin')) {
+            $user->assignRole('admin');
+
+        }
+        
 
     }
 }

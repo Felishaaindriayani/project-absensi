@@ -8,7 +8,7 @@
                                 </button>
                             </li>
                             <li class="d-none d-lg-block">
-                                <h5 class="mb-0">Good Morning, John Smith</h5>
+                                <h5 class="mb-0">Selamat Pagi, {{ Auth::user()->name }}</h5>
                             </li>
                         </ul>
 
@@ -47,7 +47,7 @@
         
                                     <div class="noti-scroll" data-simplebar>
         
-                                        <!-- item-->
+                                        {{-- <!-- item-->
                                         <a href="javascript:void(0);" class="dropdown-item notify-item text-muted link-primary active">
                                             <div class="notify-icon">
                                                 <img src="assets/images/users/user-12.jpg" class="img-fluid rounded-circle" alt="" />
@@ -85,9 +85,9 @@
 
                                             </div>
                                         </a>
-        
+         --}}
                                         <!-- item-->
-                                        <a href="javascript:void(0);" class="dropdown-item notify-item text-muted link-primary">
+                                        {{-- <a href="javascript:void(0);" class="dropdown-item notify-item text-muted link-primary">
                                             <div class="notify-icon">
                                                 <img src="assets/images/users/user-3.jpg" class="img-fluid rounded-circle" alt="" /> 
                                             </div>
@@ -126,10 +126,10 @@
                                             <p class="mb-0 user-msg">
                                                 <small class="fs-14">Completed <span class="text-reset">Improve workflow in React</span></small>
                                             </p>
-                                        </a>
+                                        </a> --}}
         
                                         <!-- item-->
-                                        <a href="javascript:void(0);" class="dropdown-item notify-item text-muted link-primary">
+                                        {{-- <a href="javascript:void(0);" class="dropdown-item notify-item text-muted link-primary">
                                             <div class="notify-icon">
                                                 <img src="assets/images/users/user-6.jpg" class="img-fluid rounded-circle" alt="" /> 
                                             </div>
@@ -147,7 +147,7 @@
                                     <a href="javascript:void(0);" class="dropdown-item text-center text-primary notify-item notify-all">
                                         View all
                                         <i class="fe-arrow-right"></i>
-                                    </a>
+                                    </a> --}}
         
                                 </div>
                             </li>
@@ -156,26 +156,26 @@
                                 <a class="nav-link dropdown-toggle nav-user me-0" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                                     <img src="assets/images/users/user-5.jpg" alt="user-image" class="rounded-circle">
                                     <span class="pro-user-name ms-1">
-                                        John Smith <i class="mdi mdi-chevron-down"></i> 
+                                        {{ Auth::user()->name }} <i class="mdi mdi-chevron-down"></i> 
                                     </span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end profile-dropdown ">
-                                    <!-- item-->
+                                    {{-- <!-- item-->
                                     <div class="dropdown-header noti-title">
                                         <h6 class="text-overflow m-0">Welcome !</h6>
-                                    </div>
+                                    </div> --}}
         
                                     <!-- item-->
-                                    <a href="pages-profile.html" class="dropdown-item notify-item">
+                                    <a href="#" class="dropdown-item notify-item">
                                         <i class="mdi mdi-account-circle-outline fs-16 align-middle"></i>
                                         <span>My Account</span>
                                     </a>
         
-                                    <!-- item-->
+                                    {{-- <!-- item-->
                                     <a href="auth-lock-screen.html" class="dropdown-item notify-item">
                                         <i class="mdi mdi-lock-outline fs-16 align-middle"></i>
                                         <span>Lock Screen</span>
-                                    </a>
+                                    </a> --}}
         
                                     <div class="dropdown-divider"></div>
         

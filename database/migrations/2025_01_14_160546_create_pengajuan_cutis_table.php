@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('id_user');
             $table->date('tanggal_pengajuan');
-            $table->enum('kategori_cuti', ['izin', 'cuti']);
+            $table->string('kategori_cuti');
             $table->date('tanggal_mulai');
             $table->date('tanggal_selesai');
             $table->text('alasan');

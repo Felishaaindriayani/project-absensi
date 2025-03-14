@@ -66,9 +66,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Jabatan::class, 'id_jabatan');
     }
-    public function absensi()
+    public function absensi(): HasMany
     {
-        return $this->hasMany(Absensi::class, 'id_user');
+        return $this->hasMany(Absensi::class, 'id_user','id');
     }
     public function pengajuan_cuti()
     {
