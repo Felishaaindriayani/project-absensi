@@ -13,6 +13,35 @@ class AbsensiController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function home(Request $request)
+    {
+        $tanggal = $request->input('tanggal') ?: Carbon::today()->format('Y-m-d');
+        $user    = Auth::user();
+
+        $jumlahPegawai = User::whereHas('roles', function ($query) {
+            $query->where('name', 'user');
+        })->count();
+
+        $jumlahHadir = Absensi::whereDate('tanggal', $tanggal)
+            ->whereIn('status', ['Hadir', 'Terlambat'])
+            ->distinct('id_user')
+            ->count('id_user');
+
+        // Pastikan ambil data sesuai peran user
+        if ($user->role == 'admin') {
+            // Admin melihat semua absensi hari ini
+            $absensis = Absensi::whereDate('tanggal', Carbon::today())->with('pegawai')->get();
+        } else {
+            // User hanya melihat absensinya sendiri
+            $absensis = Absensi::where('id_user', $user->id)
+                ->whereDate('tanggal', Carbon::today())
+                ->with('pegawai')
+                ->get();
+        }
+
+        return view('home', compact('jumlahPegawai', 'jumlahHadir', 'absensis', 'tanggal', 'user'));
+    }
+
     public function index()
     {
         if (auth()->user()->hasRole('admin')) {
@@ -101,8 +130,8 @@ class AbsensiController extends Controller
             return redirect()->back();
         } else {
             if ($currentTime->lessThan($jamPulangBatas)) {
-            Alert::success('Anda belum bisa absen pulang sebelum jam 17:00.', 'error');
-            return redirect()->back();
+                Alert::success('Anda belum bisa absen pulang sebelum jam 17:00.', 'error');
+                return redirect()->back();
             }
         }
 
@@ -130,4 +159,3 @@ class AbsensiController extends Controller
         return redirect()->route('absensi.index');
     }
 }
-

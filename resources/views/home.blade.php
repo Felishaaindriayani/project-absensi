@@ -1,10 +1,200 @@
 @extends('layouts.admin')
 @section('content')
-<div class="content-page">
-                <div class="content">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
 
-                    <!-- Start Content-->
-                    <div class="container-fluid">
+        .content-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .table-container {
+            background-color: white;
+            padding: 15px;
+            border-radius: 8px;
+        }
+    </style>
+    <div class="content-page">
+        <div class="content">
+
+            <!-- Start Content-->
+            <div class="container mt-4 content-container">
+                @if (Auth::user()->hasRole('admin'))
+                    <h3>Selamat Datang di Dashboard!</h3>
+                    <form action="{{ route('home') }}" method="GET" class="d-flex align-items-center gap-2">
+                        <label for="tanggal">Pilih Tanggal:</label>
+                        <input type="date" name="tanggal" id="tanggal" class="form-control w-auto"
+                            value="{{ old('tanggal', $tanggal ?? '') }}">
+                        <button type="submit" class="btn btn-primary">Filter</button>
+                    </form>
+
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <div class="border p-3 text-center bg-light shadow">
+                                <h5>Jumlah Karyawan</h5>
+                                <h3>{{ $jumlahPegawai }}</h3>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="border p-3 text-center bg-light shadow">
+                                <h5>Jumlah Hadir pada {{ \Carbon\Carbon::parse($tanggal)->format('d-m-Y') }}</h5>
+                                <h3>{{ $jumlahHadir }}</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4">
+                        <h5>Data Absen Hari Ini</h5>
+                        <table class="table table-bordered">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nama</th>
+                                    <th>Tanggal</th>
+                                    <th>Jam Masuk</th>
+                                    <th>Jam Keluar</th>
+                                    <th>Status</th>
+                                    <th>Jam Kerja</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @php $i=1; @endphp
+                                @forelse ($absensis as $absensi)
+                                    <tr>
+                                        <td>{{ $i++ }}</td>
+                                        <td>{{ $absen->pegawai->name ?? 'Tidak ada data' }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($absensi->tanggal)->format('d-m-Y') }}</td>
+                                        <td> {{ \Carbon\Carbon::parse($absensi->jam_masuk)->format('H:i:s') ?? '-' }}</td>
+                                        <td>
+                                            @if ($absensi->jam_keluar)
+                                                {{ \Carbon\Carbon::parse($absensi->jam_keluar)->format('H:i:s') ?? '-' }}
+                                            @else
+                                                -
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if ($absensi->status == 'Hadir')
+                                                <span class="badge bg-primary-subtle text-primary fw-semibold"
+                                                    style="font-size: 0.75rem; padding: 5px 5px; border-radius: 3px;">Hadir</span>
+                                            @elseif ($absensi->status == 'Terlambat')
+                                                <span class="badge bg-danger-subtle text-warning fw-semibold"
+                                                    style="font-size: 0.75rem; padding: 5px 5px; border-radius: 3px;">Terlambat</span>
+                                            @elseif ($absensi->status == 'Sakit')
+                                                <span class="badge bg-danger-subtle text-danger fw-semibold"
+                                                    style="font-size: 0.75rem; padding: 5px 5px; border-radius: 3px;">Sakit</span>
+                                            @else
+                                                <span class="badge bg-secondary-subtle text-secondary fw-semibold"
+                                                    style="font-size: 0.75rem; padding: 5px 5px; border-radius: 3px;">Tidak
+                                                    Diketahui</span>
+                                            @endif
+                                        </td>
+                                        <td>{{ $absensi->jam_kerja ?? '-' }}</td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="6" class="text-center">Belum ada data absensi hari ini.</td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+            </div>
+        @else
+            <div class="container">
+                <h3>Selamat Datang, {{ Auth::user()->name }}</h3>
+
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <ul class="list-unstyled mb-3">
+                            <li class="text-sm mb-2 d-flex align-items-center">
+                                <i class="mdi mdi-alert-circle-outline me-2 text-primary"></i>
+                                <span class="font-weight-bold">Status:</span>
+                                <span
+                                    class="ms-1">{{ Auth::user()->status_pegawai == 1 ? 'Aktif' : 'Tidak Aktif' }}</span>
+                            </li>
+                            <li class="text-sm mb-2 d-flex align-items-center">
+                                <i class="mdi mdi-briefcase me-2 text-primary"></i>
+                                <span class="font-weight-bold">Jabatan:</span>
+                                <span class="ms-1">{{ Auth::user()->jabatan->jabatan ?? 'Tidak ada jabatan' }}</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                @if (!$sudahAbsen)
+                    <div class="alert alert-warning" role="alert">
+                        ⚠️ Pengingat: Anda belum melakukan absensi hari ini!
+                    </div>
+                @else
+                    <div class="alert alert-success" role="alert">
+                        ✅ Terima kasih! Anda telah melakukan absensi hari ini.
+                    </div>
+                @endif
+
+                <div class="mt-4">
+                    <h5>Riwayat Absen Hari Ini</h5>
+                    <table class="table table-bordered">
+                        <thead class="table-light">
+                            <tr>
+                                <th>No</th>
+                                <th>Nama</th>
+                                <th>Tanggal</th>
+                                <th>Jam Masuk</th>
+                                <th>Jam Keluar</th>
+                                <th>Status</th>
+                                <th>Jam Kerja</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @php $i=1; @endphp
+                            @forelse ($absensis as $absensi)
+                                <tr>
+                                    <td>{{ $i++ }}</td>
+                                    <td>{{ $absensi->pegawai->name }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($absensi->tanggal)->format('d-m-Y') }}</td>
+                                    <td> {{ \Carbon\Carbon::parse($absensi->jam_masuk)->format('H:i:s') ?? '-' }}</td>
+                                    <td>
+                                        @if ($absensi->jam_keluar)
+                                            {{ \Carbon\Carbon::parse($absensi->jam_keluar)->format('H:i:s') }}
+                                        @else
+                                            -
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($absensi->status == 'Hadir')
+                                            <span class="badge bg-primary-subtle text-primary fw-semibold"
+                                                style="font-size: 0.75rem; padding: 5px 5px; border-radius: 3px;">Hadir</span>
+                                        @elseif ($absensi->status == 'Terlambat')
+                                            <span class="badge bg-danger-subtle text-warning fw-semibold"
+                                                style="font-size: 0.75rem; padding: 5px 5px; border-radius: 3px;">Terlambat</span>
+                                        @elseif ($absensi->status == 'Sakit')
+                                            <span class="badge bg-danger-subtle text-danger fw-semibold"
+                                                style="font-size: 0.75rem; padding: 5px 5px; border-radius: 3px;">Sakit</span>
+                                        @else
+                                            <span class="badge bg-secondary-subtle text-secondary fw-semibold"
+                                                style="font-size: 0.75rem; padding: 5px 5px; border-radius: 3px;">Tidak
+                                                Diketahui</span>
+                                        @endif
+                                    </td>
+                                    <td>{{ $absensi->jam_kerja ?? '-' }}</td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="6" class="text-center">Belum ada riwayat absensi hari ini.</td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            @endif
+
+
+            {{-- <div class="container-fluid">
                         <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
                             <div class="flex-grow-1">
                                 <h4 class="fs-18 fw-semibold m-0">Dashboard</h4>
@@ -113,19 +303,23 @@
                             </div>
                         </div>
 
-                </div> <!-- content -->
+                </div> <!-- content --> --}}
 
-                <!-- Footer Start -->
-                <footer class="footer">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col fs-13 text-muted text-center">
-                                &copy; <script>document.write(new Date().getFullYear())</script> - Made with <span class="mdi mdi-heart text-danger"></span> by <a href="#!" class="text-reset fw-semibold">Zoyothemes</a> 
-                            </div>
+            <!-- Footer Start -->
+            <footer class="footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col fs-13 text-muted text-center">
+                            &copy;
+                            <script>
+                                document.write(new Date().getFullYear())
+                            </script> - Made with <span class="mdi mdi-heart text-danger"></span> by <a
+                                href="#!" class="text-reset fw-semibold">Zoyothemes</a>
                         </div>
                     </div>
-                </footer>
-                <!-- end Footer -->
-                
-            </div> 
-@endsection
+                </div>
+            </footer>
+            <!-- end Footer -->
+
+        </div>
+    @endsection

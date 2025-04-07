@@ -52,8 +52,10 @@
                                                     <tr>
                                                         <td>{{ $i++ }}</td>
                                                         <td>{{ $absensi->pegawai->name }}</td>
-                                                        <td>{{ \Carbon\Carbon::parse($absensi->tanggal)->format('d-m-Y') }}</td>
-                                                        <td> {{ \Carbon\Carbon::parse($absensi->jam_masuk)->format('H:i:s') ?? '-' }}</td>
+                                                        <td>{{ \Carbon\Carbon::parse($absensi->tanggal)->format('d-m-Y') }}
+                                                        </td>
+                                                        <td> {{ \Carbon\Carbon::parse($absensi->jam_masuk)->format('H:i:s') ?? '-' }}
+                                                        </td>
                                                         <td>
                                                             @if ($absensi->jam_keluar)
                                                                 {{ \Carbon\Carbon::parse($absensi->jam_keluar)->format('H:i:s') }}
@@ -257,7 +259,7 @@
                                                                                         <span
                                                                                             class="badge bg-danger-subtle text-warning fw-semibold"
                                                                                             style="font-size: 0.75rem; padding: 5px 5px; border-radius: 3px;">Terlambat</span>
-                                                                                        @elseif($absensi->status == 'Sakit')
+                                                                                    @elseif($absensi->status == 'Sakit')
                                                                                         <span
                                                                                             class="badge bg-danger-subtle text-danger fw-semibold"
                                                                                             style="font-size: 0.75rem; padding: 5px 5px; border-radius: 3px;">Sakit</span>
