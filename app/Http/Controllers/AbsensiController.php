@@ -27,6 +27,11 @@ class AbsensiController extends Controller
             ->distinct('id_user')
             ->count('id_user');
 
+        // Cek apakah user sudah absen hari ini
+        $sudahAbsen = Absensi::where('id_user', $user->id)
+            ->whereDate('tanggal', now()->toDateString())
+            ->exists(); // Mengembalikan true jika ada data
+
         // Pastikan ambil data sesuai peran user
         if ($user->role == 'admin') {
             // Admin melihat semua absensi hari ini
@@ -39,7 +44,7 @@ class AbsensiController extends Controller
                 ->get();
         }
 
-        return view('home', compact('jumlahPegawai', 'jumlahHadir', 'absensis', 'tanggal', 'user'));
+        return view('home', compact('jumlahPegawai', 'jumlahHadir', 'absensis', 'tanggal', 'user', 'sudahAbsen'));
     }
 
     public function index()
