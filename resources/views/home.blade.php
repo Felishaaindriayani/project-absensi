@@ -66,29 +66,23 @@
                                 @forelse ($absensis as $absensi)
                                     <tr>
                                         <td>{{ $i++ }}</td>
-                                        <td>{{ $absen->pegawai->name ?? 'Tidak ada data' }}</td>
+                                        <td>{{ $absensi->pegawai->name ?? 'Tidak ada data' }}</td>
                                         <td>{{ \Carbon\Carbon::parse($absensi->tanggal)->format('d-m-Y') }}</td>
-                                        <td> {{ \Carbon\Carbon::parse($absensi->jam_masuk)->format('H:i:s') ?? '-' }}</td>
+                                        <td>{{ $absensi->jam_masuk ? \Carbon\Carbon::parse($absensi->jam_masuk)->format('H:i:s') : '-' }}
+                                        </td>
                                         <td>
-                                            @if ($absensi->jam_keluar)
-                                                {{ \Carbon\Carbon::parse($absensi->jam_keluar)->format('H:i:s') ?? '-' }}
-                                            @else
-                                                -
-                                            @endif
+                                            {{ $absensi->jam_keluar ? \Carbon\Carbon::parse($absensi->jam_keluar)->format('H:i:s') : '-' }}
                                         </td>
                                         <td>
                                             @if ($absensi->status == 'Hadir')
-                                                <span class="badge bg-primary-subtle text-primary fw-semibold"
-                                                    style="font-size: 0.75rem; padding: 5px 5px; border-radius: 3px;">Hadir</span>
+                                                <span class="badge bg-primary-subtle text-primary fw-semibold">Hadir</span>
                                             @elseif ($absensi->status == 'Terlambat')
-                                                <span class="badge bg-danger-subtle text-warning fw-semibold"
-                                                    style="font-size: 0.75rem; padding: 5px 5px; border-radius: 3px;">Terlambat</span>
+                                                <span
+                                                    class="badge bg-danger-subtle text-warning fw-semibold">Terlambat</span>
                                             @elseif ($absensi->status == 'Sakit')
-                                                <span class="badge bg-danger-subtle text-danger fw-semibold"
-                                                    style="font-size: 0.75rem; padding: 5px 5px; border-radius: 3px;">Sakit</span>
+                                                <span class="badge bg-danger-subtle text-danger fw-semibold">Sakit</span>
                                             @else
-                                                <span class="badge bg-secondary-subtle text-secondary fw-semibold"
-                                                    style="font-size: 0.75rem; padding: 5px 5px; border-radius: 3px;">Tidak
+                                                <span class="badge bg-secondary-subtle text-secondary fw-semibold">Tidak
                                                     Diketahui</span>
                                             @endif
                                         </td>
@@ -96,7 +90,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="6" class="text-center">Belum ada data absensi hari ini.</td>
+                                        <td colspan="7" class="text-center">Belum ada data absensi hari ini.</td>
                                     </tr>
                                 @endforelse
                             </tbody>

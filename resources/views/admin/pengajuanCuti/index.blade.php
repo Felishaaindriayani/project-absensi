@@ -256,6 +256,7 @@
                                                                                         <option selected disabled
                                                                                             value="">Pilih jenis
                                                                                             cuti...</option>
+                                                                                        <option>Izin</option>
                                                                                         <option>Cuti tahunan</option>
                                                                                         <option>Cuti melahirkan</option>
                                                                                     </select>

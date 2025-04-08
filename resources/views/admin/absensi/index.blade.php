@@ -6,32 +6,36 @@
             <!-- Start Content-->
             <div class="container-fluid">
                 @if (Auth::user()->hasRole('admin'))
-                    <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
-                        <div class="flex-grow-1">
-                            <h4 class="fs-18 fw-semibold m-0">Ecommerce</h4>
+                     <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
+                            <div class="flex-grow-1">
+                                <h4 class="fs-18 fw-semibold m-0">Absensi</h4>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
                         <!-- Start Recent Order -->
-                        <div class="col-md-12">
+                        {{-- <div class="col-md-12">
                             <div class="card overflow-hidden mb-0">
                                 <div class="card-header">
                                     <div class="d-flex align-items-center">
                                         <h5 class="card-title text-black mb-0">Data Absensi Pegawai </h5>
-                                    </div>
+                                    </div> --}}
 
-                                    {{-- <div class="float-end">
+                        {{-- <div class="float-end">
                                     <a href="{{ route('absensi.create') }}" class="btn btn-sm btn-primary">
                                         Tambah Absensi
                                     </a>
                                 </div> --}}
-                                </div>
 
 
-                                <div class="card-body p-0">
-                                    <div class="table-responsive">
-                                        <table class="table table-traffic mb-0">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
 
+                                    <div class="card-header">
+                                        <h5 class="card-title mb-0">Data Absensi Pegawai </h5>
+                                    </div><!-- end card header -->
+
+                                    <div class="card-body">
+                                        <table id="datatable"class="table table-bordered dt-responsive table-responsive nowrap">
                                             <thead>
                                                 <tr>
                                                     <th>No</th>

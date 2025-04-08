@@ -15,7 +15,7 @@ class AbsensiController extends Controller
      */
     public function home(Request $request)
     {
-        $tanggal = $request->input('tanggal') ?: Carbon::today()->format('Y-m-d');
+        $tanggal = $request->input('tanggal') ?: Carbon::now('Asia/Jakarta')->format('Y-m-d');
         $user    = Auth::user();
 
         $jumlahPegawai = User::whereHas('roles', function ($query) {
@@ -27,19 +27,17 @@ class AbsensiController extends Controller
             ->distinct('id_user')
             ->count('id_user');
 
-        // Cek apakah user sudah absen hari ini
         $sudahAbsen = Absensi::where('id_user', $user->id)
-            ->whereDate('tanggal', now()->toDateString())
-            ->exists(); // Mengembalikan true jika ada data
-
-        // Pastikan ambil data sesuai peran user
-        if ($user->role == 'admin') {
-            // Admin melihat semua absensi hari ini
-            $absensis = Absensi::whereDate('tanggal', Carbon::today())->with('pegawai')->get();
+            ->whereDate('tanggal', $tanggal)
+            ->exists();
+            
+        if ($user->hasRole('admin')) {
+            $absensis = Absensi::whereDate('tanggal', $tanggal)
+                ->with('pegawai')
+                ->get();
         } else {
-            // User hanya melihat absensinya sendiri
             $absensis = Absensi::where('id_user', $user->id)
-                ->whereDate('tanggal', Carbon::today())
+                ->whereDate('tanggal', $tanggal)
                 ->with('pegawai')
                 ->get();
         }
