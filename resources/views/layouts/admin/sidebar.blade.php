@@ -52,6 +52,12 @@
                                                 <span>Data Pegawai</span>
                                             </a>
                                         </li>
+                                        <li>
+                                            <a href="{{route('pengajuanCuti.index')}}" class="tp-link">
+                                                <i class="mdi mdi-archive-arrow-down-outline"></i>
+                                                <span>Laporan</span>
+                                            </a>
+                                        </li>
                                 @endif
                                         <li>
                                             <a href="{{route('absensi.index')}}" class="tp-link">
@@ -66,6 +72,7 @@
                                                 <span>Pengajuan Cuti</span>
                                             </a>
                                         </li>
+                                        
                         
 
                         </ul>

@@ -30,7 +30,7 @@ class AbsensiController extends Controller
         $sudahAbsen = Absensi::where('id_user', $user->id)
             ->whereDate('tanggal', $tanggal)
             ->exists();
-            
+
         if ($user->hasRole('admin')) {
             $absensis = Absensi::whereDate('tanggal', $tanggal)
                 ->with('pegawai')
