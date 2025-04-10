@@ -6,6 +6,8 @@ use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\PengajuanCutiController;
+use App\Http\Controllers\LaporanController;
+
 
 
 
@@ -24,8 +26,18 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::resource('jabatan', JabatanController::class);
 Route::resource('pegawai', PegawaiController::class);
+// Route::get('/pegawai/{pegawai}', [PegawaiController::class, 'show'])->name('pegawai.show');
+
+
 Route::resource('absensi', AbsensiController::class);
 Route::get('/home', [AbsensiController::class, 'home'])->name('home');
+
+Route::get('laporan/absensi', [LaporanController::class, 'absensi'])->name('laporan.absensi');
+Route::get('/laporan/absensi/pdf', [LaporanController::class, 'exportPDF'])->name('laporan.absensi.pdf');
+
+Route::post('/laporan/absensi/excel', [LaporanController::class, 'exportExcel'])->name('laporan.absensi.excel');
+
+
 
 
 Route::resource('pengajuanCuti', pengajuanCutiController::class);

@@ -53,7 +53,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="{{route('pengajuanCuti.index')}}" class="tp-link">
+                                            <a href="{{route('laporan.absensi')}}" class="tp-link">
                                                 <i class="mdi mdi-archive-arrow-down-outline"></i>
                                                 <span>Laporan</span>
                                             </a>
