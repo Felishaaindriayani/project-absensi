@@ -33,11 +33,9 @@ Route::resource('absensi', AbsensiController::class);
 Route::get('/home', [AbsensiController::class, 'home'])->name('home');
 
 Route::get('laporan/absensi', [LaporanController::class, 'absensi'])->name('laporan.absensi');
-Route::get('/laporan/absensi/pdf', [LaporanController::class, 'exportPDF'])->name('laporan.absensi.pdf');
-
+Route::get('/laporan/absensi/pdf', [LaporanController::class, 'exportPdf'])->name('laporan.absensi.pdf');
 Route::post('/laporan/absensi/excel', [LaporanController::class, 'exportExcel'])->name('laporan.absensi.excel');
-
-
+Route::get('/cari-pegawai', [LaporanController::class, 'cariPegawai'])->name('cari.pegawai');
 
 
 Route::resource('pengajuanCuti', pengajuanCutiController::class);

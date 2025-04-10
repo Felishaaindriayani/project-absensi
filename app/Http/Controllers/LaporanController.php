@@ -23,12 +23,35 @@ class LaporanController extends Controller
                 $query->whereDate('tanggal', '<=', $request->tanggal_selesai);
             })
             ->when($request->id_user, function ($query) use ($request) {
-                $query->where('id_user', $request->id_user); // pastikan ini 'id_user', bukan 'user_id'
+                $query->where('id_user', $request->id_user);
             })
             ->orderBy('tanggal', 'desc')
             ->get();
 
-        return view('admin.laporan.absensi', compact('absensis', 'user'));
+        $tanggal_mulai   = $request->tanggal_mulai;
+        $tanggal_selesai = $request->tanggal_selesai;
+
+        return view('admin.laporan.absensi', compact('absensis', 'user', 'tanggal_mulai', 'tanggal_selesai'));
+    }
+
+    public function cariPegawai(Request $request)
+    {
+        $keyword = $request->get('q');
+
+        $pegawai = User::role('user')
+            ->where('name', 'like', "%$keyword%")
+            ->orWhere('nip', 'like', "%$keyword%")
+            ->select('id', 'name', 'nip')
+            ->get();
+
+        $data = $pegawai->map(function ($item) {
+            return [
+                'id'   => $item->id,
+                'text' => $item->name . ' - ' . $item->nip,
+            ];
+        });
+
+        return response()->json($data);
     }
 
     // Export PDF berdasarkan filter
