@@ -1,7 +1,6 @@
 @extends('layouts.admin')
 
 @section('content')
-
     <div class="content-page">
         <div class="content">
 
@@ -105,7 +104,6 @@
 
         </div>
     </div>
-
 @endsection
 
 @push('scripts')
@@ -116,48 +114,50 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <script>
-    $(document).ready(function () {
-        $('#name').select2({
-            placeholder: 'Cari Nama atau NIP...',
-            minimumInputLength: 1,
-            allowClear: true,
-            width: '100%', // ⬅️ ini biar ukurannya sejajar input lainnya
-            ajax: {
-                url: '{{ route('cari.pegawai') }}',
-                dataType: 'json',
-                delay: 250,
-                data: function (params) {
-                    return {
-                        q: params.term
-                    };
-                },
-                processResults: function (data) {
-                    return {
-                        results: data
-                    };
-                },
-            }
+        $(document).ready(function() {
+            $('#name').select2({
+                placeholder: 'Cari Nama atau NIP...',
+                minimumInputLength: 1,
+                allowClear: true,
+                width: '100%', // ⬅️ ini biar ukurannya sejajar input lainnya
+                ajax: {
+                    url: '{{ route('cari.pegawai') }}',
+                    dataType: 'json',
+                    delay: 250,
+                    data: function(params) {
+                        // debugger
+                        return {
+                            q: params.term
+                        };
+
+                        // console.log(q);
+                    },
+                    processResults: function(data) {
+                        return {
+                            results: data
+                        };
+                    },
+                }
+            });
+
+            // ⬇️ Auto-redirect saat pilih pegawai
+            $('#name').on('select2:select', function(e) {
+                var data = e.params.data;
+                var id_user = data.id;
+
+                let tanggal_mulai = $('input[name="tanggal_mulai"]').val();
+                let tanggal_selesai = $('input[name="tanggal_selesai"]').val();
+
+                var url = new URL(window.location.href.split('?')[0]);
+                var params = new URLSearchParams();
+
+                if (tanggal_mulai) params.append('tanggal_mulai', tanggal_mulai);
+                if (tanggal_selesai) params.append('tanggal_selesai', tanggal_selesai);
+                if (id_user) params.append('id_user', id_user);
+
+                url.search = params.toString();
+                window.location.href = url.toString();
+            });
         });
-
-        // ⬇️ Auto-redirect saat pilih pegawai
-        $('#name').on('select2:select', function (e) {
-            var data = e.params.data;
-            var id_user = data.id;
-
-            let tanggal_mulai = $('input[name="tanggal_mulai"]').val();
-            let tanggal_selesai = $('input[name="tanggal_selesai"]').val();
-
-            var url = new URL(window.location.href.split('?')[0]);
-            var params = new URLSearchParams();
-
-            if (tanggal_mulai) params.append('tanggal_mulai', tanggal_mulai);
-            if (tanggal_selesai) params.append('tanggal_selesai', tanggal_selesai);
-            if (id_user) params.append('id_user', id_user);
-
-            url.search = params.toString();
-            window.location.href = url.toString();
-        });
-    });
-</script>
-
+    </script>
 @endpush

@@ -128,19 +128,19 @@
                                                         <div
                                                             class="card-header d-flex justify-content-between align-items-center">
 
-                                                            @if ($jumlahCuti >= 5)
+                                                            {{-- @if ($jumlahCuti >= 5)
                                                                 <form action="{{ route('alert') }}" method="POST">
                                                                     @csrf
                                                                     <button type="submit" class="btn btn-danger">
                                                                         Tambah Pengajuan
                                                                     </button>
                                                                 </form>
-                                                            @else
+                                                            @else --}}
                                                                 <button type="button" class="btn btn-primary"
                                                                     data-bs-toggle="modal" data-bs-target="#createModal">
                                                                     Tambah Pengajuan
                                                                 </button>
-                                                            @endif
+                                                            {{-- @endif --}}
 
                                                             </form>
                                                         </div>
@@ -232,13 +232,17 @@
                                                                                         value="{{ $pegawai->id ?? '' }}">
                                                                                 </div>
                                                                                 <!-- HPL (khusus cuti melahirkan) -->
- <!-- HPL -->
-    <div class="col-md-6" id="hpl_section" style="display: none;">
-        <div class="form-group">
-            <label for="hpl_input">Hari Perkiraan Lahir (HPL)</label>
-            <input type="date" id="hpl_input" name="hpl" class="form-control">
-        </div>
-    </div>
+                                                                                <!-- HPL -->
+                                                                                <div class="col-md-6" id="hpl_section"
+                                                                                    style="display: none;">
+                                                                                    <div class="form-group">
+                                                                                        <label for="hpl_input">Hari
+                                                                                            Perkiraan Lahir (HPL)</label>
+                                                                                        <input type="date"
+                                                                                            id="hpl_input" name="hpl"
+                                                                                            class="form-control">
+                                                                                    </div>
+                                                                                </div>
 
                                                                                 <div class="col-md-6 mb-3">
                                                                                     <label class="form-label">Tanggal
@@ -258,10 +262,14 @@
                                                                                         name="kategori_cuti"
                                                                                         id="kategori_cuti" required>
                                                                                         <option selected disabled
-                                                                                            value="">Pilih jenis cuti...</option>
-                                                                                        <option value="Izin">Izin</option>
-                                                                                        <option value="Cuti tahunan">Cuti tahunan</option>
-                                                                                        <option value="Cuti melahirkan"> Cuti melahirkan</option>
+                                                                                            value="">Pilih jenis
+                                                                                            cuti...</option>
+                                                                                        <option value="Izin">Izin
+                                                                                        </option>
+                                                                                        <option value="Cuti tahunan">Cuti
+                                                                                            tahunan</option>
+                                                                                        <option value="Cuti melahirkan">
+                                                                                            Cuti melahirkan</option>
                                                                                     </select>
 
                                                                                     @error('kategori_cuti')
@@ -331,39 +339,35 @@
     @endsection
 
     @push('scripts')
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    const kategoriSelect = document.getElementById('kategori_cuti');
-    const hplSection = document.getElementById('hpl_section');
-    const hplInput = document.getElementById('hpl_input');
-    const tanggalMulai = document.querySelector('input[name="tanggal_mulai"]');
-    const tanggalSelesai = document.querySelector('input[name="tanggal_selesai"]');
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const kategoriSelect = document.getElementById('kategori_cuti');
+                const hplSection = document.getElementById('hpl_section');
+                const hplInput = document.getElementById('hpl_input');
+                const tanggalMulai = document.querySelector('input[name="tanggal_mulai"]');
+                const tanggalSelesai = document.querySelector('input[name="tanggal_selesai"]');
 
-    kategoriSelect.addEventListener('change', function () {
-        if (this.value === 'Cuti melahirkan') {
-            hplSection.style.display = 'block';
-        } else {
-            hplSection.style.display = 'none';
-            hplInput.value = '';
-            tanggalMulai.value = '';
-            tanggalSelesai.value = '';
-        }
-    });
+                kategoriSelect.addEventListener('change', function() {
+                    if (this.value === 'Cuti melahirkan') {
+                        hplSection.style.display = 'block';
+                    } else {
+                        hplSection.style.display = 'none';
+                        hplInput.value = '';
+                        tanggalMulai.value = '';
+                        tanggalSelesai.value = '';
+                    }
+                });
 
-    hplInput.addEventListener('change', function () {
-        const hplDate = new Date(this.value);
-        if (!isNaN(hplDate)) {
-            const mulai = new Date(hplDate);
-            mulai.setDate(hplDate.getDate() - 30); // 30 hari sebelum HPL
+                hplInput.addEventListener('change', function() {
+                    const hplDate = new Date(this.value);
+                    if (!isNaN(hplDate)) {
+                        const mulai = new Date(hplDate);
+                        mulai.setDate(hplDate.getDate() - 30); // 30 hari sebelum HPL
 
-            tanggalMulai.value = mulai.toISOString().split('T')[0];
-            tanggalSelesai.value = hplDate.toISOString().split('T')[0];
-        }
-    });
-});
-</script>
-@endpush
-
-
-
-
+                        tanggalMulai.value = mulai.toISOString().split('T')[0];
+                        tanggalSelesai.value = hplDate.toISOString().split('T')[0];
+                    }
+                });
+            });
+        </script>
+    @endpush

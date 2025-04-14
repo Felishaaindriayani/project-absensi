@@ -33,7 +33,10 @@
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
                         aria-haspopup="false" aria-expanded="false">
                         <i data-feather="bell" class="noti-icon"></i>
-                        <span class="badge bg-danger rounded-circle noti-icon-badge">9</span>
+                        <span class="badge bg-danger rounded-circle noti-icon-badge">
+                            {{-- {{ $jumlahNotif }} --}}
+                        </span>
+
                     </a>
                     <div class="dropdown-menu dropdown-menu-end dropdown-lg">
 
@@ -41,9 +44,13 @@
                         <div class="dropdown-item noti-title">
                             <h5 class="m-0">
                                 <span class="float-end">
-                                    <a href="" class="text-dark">
-                                        <small>Clear All</small>
+                                    <a href="{{ route('pengajuanCuti.index') }}" class="dropdown-item notify-item">
+                                        <div class="notify-icon bg-primary">
+                                            <i class="mdi mdi-calendar"></i>
+                                        </div>
+                                        <p class="notify-details">Ada Pengajuan Cuti Baru</p>
                                     </a>
+
                                 </span>Notification
                             </h5>
                         </div>

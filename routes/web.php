@@ -39,7 +39,7 @@ Route::get('/cari-pegawai', [LaporanController::class, 'cariPegawai'])->name('ca
 
 
 Route::resource('pengajuanCuti', pengajuanCutiController::class);
-Route::post('pengajuanCuti/alert', [PengajuanCutiController::class,'alert'])->name('alert');
+// Route::post('pengajuanCuti/alert', [PengajuanCutiController::class,'alert'])->name('alert');
 Route::put('pengajuanCuti/{id}/approve', [PengajuanCutiController::class,'approve'])->name('pengajuanCuti.approve');
 Route::put('pengajuanCuti/{id}/reject', [PengajuanCutiController::class, 'reject'])->name('pengajuanCuti.reject');
 
