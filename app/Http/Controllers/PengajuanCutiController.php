@@ -62,14 +62,14 @@ class PengajuanCutiController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'alasan'            => 'required|string|max:255',
-            'kategori_cuti'     => 'required|string',
-            'tanggal_pengajuan' => 'required|date',
-            'hpl'               => 'required_if:kategori_cuti,Cuti melahirkan|date',
-            'tanggal_mulai'     => 'required_if:kategori_cuti,Izin,Cuti tahunan|date',
-            'tanggal_selesai'   => 'required_if:kategori_cuti,Izin,Cuti tahunan|date|after_or_equal:tanggal_mulai',
-        ]);
+        // $request->validate([
+        //     'alasan'            => 'required|string|max:255',
+        //     'kategori_cuti'     => 'required|string',
+        //     'tanggal_pengajuan' => 'required|date',
+        //     'hpl'               => 'required_if:kategori_cuti,Cuti melahirkan|date',
+        //     'tanggal_mulai'     => 'required_if:kategori_cuti,Izin,Cuti tahunan|date',
+        //     'tanggal_selesai'   => 'required_if:kategori_cuti,Izin,Cuti tahunan|date|after_or_equal:tanggal_mulai',
+        // ]);
 
         if ($request->kategori_cuti == 'Izin') {
             $mulai       = Carbon::parse($request->tanggal_mulai);
