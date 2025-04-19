@@ -31,16 +31,32 @@ class AdminSeeder extends Seeder
         $user = Role::firstOrCreate(['name' => 'user']);
         $user->syncPermissions([$create_kehadiran, $read_kehadiran, $read_user]);
 
-        $user = User::firstOrCreate([
+        $admin = User::firstOrCreate([
             'name' => 'admin',
             'email' => 'admin@gmail.com',
             'password' => Hash::make('12345678'),
         ]);
+        $admin->assignRole('admin');
 
-        if (!$user->hasRole('admin')) {
-            $user->assignRole('admin');
+        // $user = User::create(([
+        //     'id_user' => $admin->id,
+        //     'id_jabatan' => null,
+        //     'nip' => 112233,
+        //     'telepon' => 8932177,
+        //     'jenis_kelamin' => 'P',
+        //     'tempat_lahir' => 'Bandung',
+        //     'tgl_lahir' => '2000-02-19',
+        //     'status_pegawai' => 1,
+        //     'agama' => 'islam',
+        //     'profile' => null,
+        // ]));
+        // $user->assignRole('user');
 
-        }
+
+        // if (!$user->hasRole('admin')) {
+        //     $user->assignRole('admin');
+
+        // }
         
 
     }

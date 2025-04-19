@@ -31,12 +31,12 @@ class AbsensiController extends Controller
             ->whereDate('tanggal', $tanggal)
             ->exists();
 
-        if ($user->role('admin')) {
+        if ($user->hasRole('admin')) {
             $absensis = Absensi::whereDate('tanggal', $tanggal)
                 ->with('pegawai')
                 ->get();
         } else {
-            $absensis = Absensi::where('id_user', $user->id)
+            $absensis = Absensi::where('id_user', Auth::user()->id)
                 ->whereDate('tanggal', $tanggal)
                 ->with('pegawai')
                 ->get();

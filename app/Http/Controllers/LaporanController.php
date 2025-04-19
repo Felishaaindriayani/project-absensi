@@ -39,8 +39,10 @@ class LaporanController extends Controller
         $keyword = $request->get('q');
 
         $pegawai = User::role('user')
-            ->where('name', 'like', "%$keyword%")
-            ->orWhere('nip', 'like', "%$keyword%")
+            ->where(function ($query) use ($keyword) {
+                $query->where('name', 'like', "%$keyword%")
+                    ->orWhere('nip', 'like', "%$keyword%");
+            })
             ->select('id', 'name', 'nip')
             ->get();
 

@@ -28,24 +28,24 @@ class PengajuanCutiController extends Controller
 
     $pegawai = Auth::user();
 
-    // 🛎️ Tambahkan ini buat notifikasi
-    $jumlahNotif = pengajuan_cuti::where('status', 'pending')->count();
-    $daftarNotif = pengajuan_cuti::where('status', 'pending')->latest()->take(5)->get();
+    // // 🛎️ Tambahkan ini buat notifikasi
+    // $jumlahNotif = pengajuan_cuti::where('status', 'pending')->count();
+    // $daftarNotif = pengajuan_cuti::where('status', 'pending')->latest()->take(5)->get();
 
-    return view('admin.pengajuanCuti.index', compact('pengajuanCuti','jumlahCuti','pegawai','jumlahNotif','daftarNotif'));
+    return view('admin.pengajuanCuti.index', compact('pengajuanCuti','jumlahCuti','pegawai'));
 }
 
 
-    public function notif()
-    {
-        $pengajuanCuti = pengajuan_cuti::latest()->get();
+    // public function notif()
+    // {
+    //     $pengajuanCuti = pengajuan_cuti::latest()->get();
 
-        // Notifikasi buat admin
-        $jumlahNotif = pengajuan_cuti::where('status', 'pending')->count();
-        $daftarNotif = pengajuan_cuti::where('status', 'pending')->latest()->take(5)->get();
+    //     // Notifikasi buat admin
+    //     $jumlahNotif = pengajuan_cuti::where('status', 'pending')->count();
+    //     $daftarNotif = pengajuan_cuti::where('status', 'pending')->latest()->take(5)->get();
 
-        return view('admin.PengajuanCuti.index', compact('pengajuanCuti', 'jumlahNotif', 'daftarNotif'));
-    }
+    //     return view('admin.PengajuanCuti.index', compact('pengajuanCuti', 'jumlahNotif', 'daftarNotif'));
+    // }
 
     /**
      * Show the form for creating a new resource.

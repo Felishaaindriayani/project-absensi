@@ -3,8 +3,10 @@ namespace App\Http\Controllers;
 
 use App\Models\jabatan;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+
 
 class PegawaiController extends Controller
 {
@@ -17,7 +19,7 @@ class PegawaiController extends Controller
             $query->where('name', 'admin');
         })->get();
         $jabatan = Jabatan::all();
-        return view('admin.pegawai.index', compact('pegawai','jabatan'));
+        return view('admin.pegawai.index', compact('pegawai', 'jabatan'));
     }
 
     /**
@@ -25,7 +27,7 @@ class PegawaiController extends Controller
      */
     public function create()
     {
-        $pegawai   = User::all();
+        $pegawai = User::all();
         $jabatan = jabatan::all();
         return view('admin.pegawai.create', compact('pegawai', 'jabatan'));
     }
@@ -38,7 +40,7 @@ class PegawaiController extends Controller
         $pegawai                 = new User();
         $pegawai->name           = $request->name;
         $pegawai->email          = $request->email;
-        $pegawai->password       = $request->password;
+        $pegawai->password       = Hash::make($request->password); // jangan lupa hash password ya!
         $pegawai->id_jabatan     = $request->id_jabatan;
         $pegawai->nip            = $request->nip;
         $pegawai->telepon        = $request->telepon;
@@ -57,6 +59,10 @@ class PegawaiController extends Controller
         }
 
         $pegawai->save();
+
+        // ✅ Tambahin ini biar langsung dapet role "user"
+        $pegawai->assignRole('user');
+
         return redirect()->route('pegawai.index');
     }
 
@@ -75,7 +81,7 @@ class PegawaiController extends Controller
      */
     public function edit($id)
     {
-        $pegawai   = User::findOrFail($id);
+        $pegawai = User::findOrFail($id);
         $jabatan = jabatan::all();
         return view('admin.pegawai.edit', compact('pegawai', 'jabatan'));
     }

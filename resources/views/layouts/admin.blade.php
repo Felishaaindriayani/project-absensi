@@ -12,12 +12,12 @@
 
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{ asset('admin/assets/images/favicon.ico') }}">
-
+    <link href="{{asset('admin/assets/libs/simple-datatables/style.css')}}" rel="stylesheet" type="text/css" />
     <!-- App css -->
     <link href="{{ asset('admin/assets/css/app.min.css') }}" rel="stylesheet" type="text/css" id="app-style" />
 
     <!-- Datatables css -->
-    <link href="{{ asset('admin/assets/libs/datatables.net-bs5/css/dataTables.bootstrap5.min.css') }}')}}"
+    <link href="{{ asset('admin/assets/libs/datatables.net-bs5/css/dataTables.bootstrap5.min.css') }}"
         rel="stylesheet" type="text/css" />
     <link href="{{ asset('admin/assets/libs/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css') }}"
         rel="stylesheet" type="text/css" />
@@ -29,6 +29,7 @@
 
     <!-- Icons -->
     <link href="{{ asset('admin/assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 </head>
 
@@ -111,6 +112,12 @@
 
     <!-- App js-->
     <script src="{{ asset('admin/assets/js/app.js') }}"></script>
+
+    <!-- Simple Datatables JS -->
+        <script src="{{asset('admin/assets/libs/simple-datatables/umd/simple-datatables.js')}}"></script>
+
+        <!-- Simple Datatables Init JS -->
+        <script src="{{asset('admin/assets/js/pages/simple-datatables.init.js')}}"></script>
 
     @include('sweetalert::alert')
 

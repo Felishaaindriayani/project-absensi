@@ -72,7 +72,14 @@
                                                 <span>Pengajuan Cuti</span>
                                             </a>
                                         </li>
-                                        
+                                        @role('user')
+                                         <li>
+                                            <a href="{{route('pegawai.show', Auth::user()->id)}}" class="tp-link">
+                                                <i class="mdi mdi-account-outline"></i>
+                                                <span>Profile</span>
+                                            </a>
+                                        </li>
+                                        @endrole
                         
 
                         </ul>
