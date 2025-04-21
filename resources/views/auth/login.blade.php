@@ -32,16 +32,16 @@
                                 <div class="card p-3 mb-0">
                                     <div class="card-body">
 
-                                        <div class="mb-0 border-0 p-md-5 p-lg-0 p-4">
-                                            <div class="mb-4 p-0 text-center">
-                                                <a href="index.html" class="auth-logo">
-                                                    {{-- <img src="{{asset('admin/assets/images/logo-dark.png')}}" alt="logo-dark" class="mx-auto" height="28" /> --}}
+                                        <div class="mb-0 border-0 p-md-3 p-lg-0 p-4">
+                                            <div class="mb-0 p-0 text-center">
+                                                <a href="#" class="auth-logo">
+                                                   <img src="{{ asset('admin/assets/images/logo-1.png') }}" alt="Workcheck Logo" class="mx-auto d-block" style="width: 250px; object-fit: contain; margin-bottom: 4px;" />
                                                 </a>
                                             </div>
 
-                                            <div class="auth-title-section mb-3 text-center"> 
-                                                <h3 class="text-dark fs-20 fw-medium mb-2">Welcome back</h3>
-                                                <p class="text-dark text-capitalize fs-14 mb-0">Sign in to continue to smart absen.</p>
+                                            <div class="auth-title-section mb-0 text-center"> 
+                                                <h3 class="text-dark fs-20 fw-medium mb-0">Welcome back</h3>
+                                                <p class="text-dark text-capitalize fs-14 mb-0">Sign in to continue to workcheck.</p>
                                             </div>
 
                                              <form method="POST" action="{{ route('login')}}" class="my-4">
@@ -101,7 +101,7 @@
                         <div class="account-page-bg p-md-5 p-4">
                             <div class="text-center">
                                 <div class="auth-image">
-                                    <img src="{{asset('admin/assets/images/auth-images.svg')}}" class="mx-auto img-fluid"  alt="images">
+                                    <img src="{{asset('admin/assets/images/logo-1.png')}}" class="mx-auto img-fluid"  alt="images">
                                 </div>
                             </div>
                         </div>

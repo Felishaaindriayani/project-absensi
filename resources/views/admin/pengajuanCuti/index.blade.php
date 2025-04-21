@@ -31,7 +31,7 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="table-responsive">
-                                            <table class="table mb-0 checkbox-all" id="datatable_1">
+                                            <table id="datatable" class="table table-bordered dt-responsive table-responsive nowrap">
                                                 <thead>
                                                     <tr>
                                                         <th>No</th>
@@ -153,8 +153,7 @@
                                                             <div class="card">
                                                                 <div class="card-body">
                                                                     <div class="table-responsive">
-                                                                        <table class="table mb-0 checkbox-all"
-                                                                            id="datatable_1">
+                                                                        <table id="datatable" class="table table-bordered dt-responsive table-responsive nowrap">
                                                                             <thead>
                                                                                 <tr>
                                                                                     <th>No</th>

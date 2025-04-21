@@ -4,28 +4,32 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>WorkCheck</title>
+    <title>Workcheck</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc." />
     <meta name="author" content="Zoyothemes" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <!-- App favicon -->
-    <link rel="shortcut icon" href="{{ asset('admin/assets/images/favicon.ico') }}">
-    <link href="{{asset('admin/assets/libs/simple-datatables/style.css')}}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="{{ asset('admin/assets/images/logo-v3.png') }}">
+    <link href="{{ asset('admin/assets/libs/simple-datatables/style.css') }}" rel="stylesheet" type="text/css" />
     <!-- App css -->
     <link href="{{ asset('admin/assets/css/app.min.css') }}" rel="stylesheet" type="text/css" id="app-style" />
 
     <!-- Datatables css -->
-    <link href="{{ asset('admin/assets/libs/datatables.net-bs5/css/dataTables.bootstrap5.min.css') }}"
-        rel="stylesheet" type="text/css" />
+    <link href="{{ asset('admin/assets/libs/datatables.net-bs5/css/dataTables.bootstrap5.min.css') }}" rel="stylesheet"
+        type="text/css" />
     <link href="{{ asset('admin/assets/libs/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css') }}"
         rel="stylesheet" type="text/css" />
     <link href="{{ asset('admin/assets/libs/datatables.net-keytable-bs5/css/keyTable.bootstrap5.min.css') }}"
         rel="stylesheet" type="text/css" />
     <link href="{{ asset('admin/assets/libs/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css') }}"
         rel="stylesheet" type="text/css" />
-    <link href="{{ asset('admin/assets/libs/datatables.net-select-bs5/css/select.bootstrap5.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('admin/assets/libs/datatables.net-select-bs5/css/select.bootstrap5.min.css') }}"
+        rel="stylesheet" type="text/css" />
+
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
 
     <!-- Icons -->
     <link href="{{ asset('admin/assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
@@ -114,10 +118,13 @@
     <script src="{{ asset('admin/assets/js/app.js') }}"></script>
 
     <!-- Simple Datatables JS -->
-        <script src="{{asset('admin/assets/libs/simple-datatables/umd/simple-datatables.js')}}"></script>
+    <script src="{{ asset('admin/assets/libs/simple-datatables/umd/simple-datatables.js') }}"></script>
 
-        <!-- Simple Datatables Init JS -->
-        <script src="{{asset('admin/assets/js/pages/simple-datatables.init.js')}}"></script>
+    <!-- Simple Datatables Init JS -->
+    <script src="{{ asset('admin/assets/js/pages/simple-datatables.init.js') }}"></script>
+
+    <!-- Bootstrap 5 (termasuk Popper.js) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     @include('sweetalert::alert')
 

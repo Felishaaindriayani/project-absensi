@@ -29,7 +29,7 @@
                     </button>
                 </li> --}}
 
-                <li class="dropdown notification-list topbar-dropdown">
+                {{-- <li class="dropdown notification-list topbar-dropdown">
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
                         aria-haspopup="false" aria-expanded="false">
                         <i data-feather="bell" class="noti-icon"></i>
@@ -37,8 +37,8 @@
                             {{-- {{ $jumlahNotif }} --}}
                         </span>
 
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-end dropdown-lg">
+                    {{-- </a>  --}}
+                    {{-- <div class="dropdown-menu dropdown-menu-end dropdown-lg">
 
                         <!-- item-->
                         <div class="dropdown-item noti-title">
@@ -53,7 +53,7 @@
 
                                 </span>Notification
                             </h5>
-                        </div>
+                        </div> --}}
 
                         <div class="noti-scroll" data-simplebar>
 
@@ -165,12 +165,21 @@
                 <li class="dropdown notification-list topbar-dropdown">
                     <a class="nav-link dropdown-toggle nav-user me-0" data-bs-toggle="dropdown" href="#"
                         role="button" aria-haspopup="false" aria-expanded="false">
-                        <img src="assets/images/users/user-5.jpg" alt="user-image" class="rounded-circle">
+                        <img src="{{asset('admin/assets/images/user.png')}}" alt="user-image" class="rounded-circle">
                         <span class="pro-user-name ms-1">
                             {{ Auth::user()->name }} <i class="mdi mdi-chevron-down"></i>
                         </span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end profile-dropdown ">
+                        <a class="dropdown-item" href="{{ route('logout') }}"
+                            onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                            {{ __('Logout') }}
+                        </a>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
                         {{-- <!-- item-->
                                     <div class="dropdown-header noti-title">
                                         <h6 class="text-overflow m-0">Welcome !</h6>
@@ -191,18 +200,10 @@
                                         <span>Lock Screen</span>
                                     </a> --}}
 
-                        <div class="dropdown-divider"></div>
+                        {{-- <div class="dropdown-divider"></div> --}}
 
                         <!-- item-->
-                        <a class="dropdown-item" href="{{ route('logout') }}"
-                            onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                            {{ __('Logout') }}
-                        </a>
-
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
+                        
 
                     </div>
                 </li>

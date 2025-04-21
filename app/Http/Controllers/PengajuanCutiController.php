@@ -14,27 +14,26 @@ class PengajuanCutiController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-{
-    if (auth()->user()->hasRole('admin')) {
-        $pengajuanCuti = pengajuan_cuti::with('pegawai')->get();
-    } else {
-        $pengajuanCuti = pengajuan_cuti::where('id_user', auth()->user()->id)->with('pegawai')->get();
+    {
+        if (auth()->user()->hasRole('admin')) {
+            $pengajuanCuti = pengajuan_cuti::with('pegawai')->get();
+        } else {
+            $pengajuanCuti = pengajuan_cuti::where('id_user', auth()->user()->id)->with('pegawai')->get();
+        }
+
+        $currentYear = Carbon::now()->year;
+        $jumlahCuti  = pengajuan_cuti::where('id_user', auth()->id())
+            ->whereYear('tanggal_mulai', $currentYear)
+            ->count();
+
+        $pegawai = Auth::user();
+
+        // // 🛎️ Tambahkan ini buat notifikasi
+        // $jumlahNotif = pengajuan_cuti::where('status', 'pending')->count();
+        // $daftarNotif = pengajuan_cuti::where('status', 'pending')->latest()->take(5)->get();
+
+        return view('admin.pengajuanCuti.index', compact('pengajuanCuti', 'jumlahCuti', 'pegawai'));
     }
-
-    $currentYear = Carbon::now()->year;
-    $jumlahCuti = pengajuan_cuti::where('id_user', auth()->id())
-                    ->whereYear('tanggal_mulai', $currentYear)
-                    ->count();
-
-    $pegawai = Auth::user();
-
-    // // 🛎️ Tambahkan ini buat notifikasi
-    // $jumlahNotif = pengajuan_cuti::where('status', 'pending')->count();
-    // $daftarNotif = pengajuan_cuti::where('status', 'pending')->latest()->take(5)->get();
-
-    return view('admin.pengajuanCuti.index', compact('pengajuanCuti','jumlahCuti','pegawai'));
-}
-
 
     // public function notif()
     // {
@@ -145,6 +144,37 @@ class PengajuanCutiController extends Controller
 
         Alert::error('Error', 'Pengajuan cuti tidak disetujui !')->autoClose(1500);
         return redirect()->back();
+    }
+
+    public function getNotification()
+    {
+        // if (Auth::check()) {
+        //     if (Auth::user()->hasRole('admin')) {
+        //         // Admin: ambil pengajuan cuti yang menunggu
+        //         $cutiNotif = pengajuan_cuti::where('status', 'menunggu')->get();
+        //     } else {
+        //         // User: ambil pengajuan cuti miliknya yang sudah diproses
+        //         $cutiNotif = pengajuan_cuti::where('id_user', Auth::id())
+        //             ->whereIn('status', ['menyetujui', 'tidak_menyetujui'])
+        //             ->get();
+        //     }
+
+        //     return response()->json([
+        //         'data' => $cutiNotif,
+        //     ]);
+        // }
+
+        // return response()->json([
+        //     'message' => 'Unauthorized',
+        // ], 401);
+
+        
+        $meetNotification = Meeting::where('status', 'menunggu')->count();
+
+        return response()->json([
+            'meetCount' => $meetNotification,
+        ]);
+
     }
     /**
      * Display the specified resource.

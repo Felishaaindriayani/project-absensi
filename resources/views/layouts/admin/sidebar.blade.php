@@ -5,20 +5,9 @@
                     <div id="sidebar-menu">
 
                         <div class="logo-box">
-                            <a href="index.html" class="logo logo-light">
-                                <span class="logo-sm">
-                                    <img src="assets/images/logo-sm.png" alt="" height="22">
-                                </span>
-                                <span class="logo-lg">
-                                    <img src="assets/images/logo-light.png" alt="" height="24">
-                                </span>
-                            </a>
                             <a href="index.html" class="logo logo-dark">
-                                <span class="logo-sm">
-                                    <img src="assets/images/logo-sm.png" alt="" height="22">
-                                </span>
                                 <span class="logo-lg">
-                                    <img src="assets/images/logo-dark.png" alt="" height="24">
+                                    <img src="{{asset('admin/assets/images/logo-2.png')}}" alt="" height="100" width="200">
                                 </span>
                             </a>
                         </div>
@@ -28,62 +17,71 @@
                             <li class="menu-title">Menu</li>
 
                             <li>
-                                <a href="{{route('home')}}" >
+                                <a href="{{ route('home') }}">
                                     <i data-feather="home"></i>
                                     <span> Dashboard </span>
                                 </a>
                             </li>
+                            @if (Auth::user()->hasRole('admin'))
+                                <li>
+                                    <a href="{{ route('jabatan.index') }}" class="tp-link">
+                                        <i class="mdi mdi-account-file-text-outline"></i>
+                                        <span>Jabatan</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('pegawai.index') }}" class="tp-link">
+                                        <i class="mdi mdi-account-box-edit-outline"></i>
+                                        <span>Data Pegawai</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('laporan.absensi') }}" class="tp-link">
+                                        <i class="mdi mdi-archive-arrow-down-outline"></i>
+                                        <span>Laporan</span>
+                                    </a>
+                                </li>
+                            @endif
                             <li>
-                                <a href="apps-calendar.html" class="tp-link">
-                                    <i data-feather="calendar"></i>
-                                    <span> Calendar </span>
+                                <a href="{{ route('absensi.index') }}" class="tp-link">
+                                    <i class=" mdi mdi-book-open-variant-outline "></i>
+                                    <span>Absensi</span>
                                 </a>
-                            </li>
-                            @if(Auth::user()->hasRole('admin'))
-                                        <li>
-                                            <a href="{{route('jabatan.index')}}" class="tp-link">
-                                                <i class="mdi mdi-account-file-text-outline"></i>
-                                                <span>Jabatan</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="{{route('pegawai.index')}}" class="tp-link">
-                                                <i class="mdi mdi-account-box-edit-outline"></i>
-                                                <span>Data Pegawai</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="{{route('laporan.absensi')}}" class="tp-link">
-                                                <i class="mdi mdi-archive-arrow-down-outline"></i>
-                                                <span>Laporan</span>
-                                            </a>
-                                        </li>
-                                @endif
-                                        <li>
-                                            <a href="{{route('absensi.index')}}" class="tp-link">
-                                                <i class=" mdi mdi-book-open-variant-outline "></i>
-                                                <span>Absensi</span>
-                                            </a>
 
-                                        </li>
-                                        <li>
-                                            <a href="{{route('pengajuanCuti.index')}}" class="tp-link">
-                                                <i class="mdi mdi-archive-arrow-down-outline"></i>
-                                                <span>Pengajuan Cuti</span>
-                                            </a>
-                                        </li>
-                                        @role('user')
-                                         <li>
-                                            <a href="{{route('pegawai.show', Auth::user()->id)}}" class="tp-link">
-                                                <i class="mdi mdi-account-outline"></i>
-                                                <span>Profile</span>
-                                            </a>
-                                        </li>
-                                        @endrole
-                        
+                            </li>
+                            <li>
+                                <a class="nav-link "
+                                    href="{{ route('pengajuanCuti.index') }}">
+                                        <i class="mdi mdi-archive-arrow-down-outline"></i>
+                                    <span>Pengajuan Cuti</span>
+                                    @role('admin')
+                                    @if (isset($meetNotification) && $meetNotification->count() > 0)
+                                        <span class="badge bg-danger ms-2">{{ $meetNotification->count() }}</span>
+                                    @endif
+                                    @endrole
+                                </a>
+                                {{-- <a href="{{ route('pengajuanCuti.index') }}" class="nav-link">
+                                    <i class="nav-icon fas fa-envelope"></i>
+                                    <p>
+                                        Pengajuan Cuti
+                                        @if (isset($cutiNotif) && $cutiNotif->count() > 0)
+                                            <span class="right badge badge-danger">{{ $cutiNotif->count() }}</span>
+                                        @endif
+                                    </p>
+                                </a> --}}
+                            </li>
+                            @role('user')
+                                <li>
+                                    <a href="{{ route('pegawai.show', Auth::user()->id) }}" class="tp-link">
+                                        <i class="mdi mdi-account-outline"></i>
+                                        <span>Profile</span>
+                                    </a>
+                                </li>
+                            @endrole
+
 
                         </ul>
-            
+
                     </div>
                     <!-- End Sidebar -->
 

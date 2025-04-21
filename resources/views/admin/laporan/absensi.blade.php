@@ -37,9 +37,9 @@
                                 <button type="submit" class="btn btn-primary w-100">Filter</button>
                             </div>
                             <div class="col-md-3 offset-md-6 d-flex gap-2">
-                                <a href="{{ route('laporan.absensi.excel', request()->query()) }}"
+                                {{-- <a href="{{ route('laporan.absensi.excel', request()->query()) }}"
                                     class="btn btn-success w-100">Export
-                                    Excel</a>
+                                    Excel</a> --}}
                                 <a href="{{ route('laporan.absensi.pdf', request()->query()) }}"
                                     class="btn btn-danger w-100" target="_blank">Export PDF</a>
                             </div>

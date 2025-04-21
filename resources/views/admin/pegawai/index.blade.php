@@ -28,7 +28,8 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table class="table mb-0 checkbox-all" id="datatable_1">
+                                        <table id="datatable"
+                                            class="table table-bordered dt-responsive table-responsive nowrap">
                                             <thead>
                                                 <tr>
                                                     <th>No</th>
@@ -51,16 +52,29 @@
                                                         </td>
                                                         <td>{{ $data->nip }}</td>
                                                         <td>
+                                                            <!-- Status -->
                                                             @if ($data->status_pegawai == 1)
-                                                                <span
-                                                                    class="badge bg-primary-subtle text-primary fw-semibold"
-                                                                    style="font-size: 0.75rem; padding: 5px 5px; border-radius: 3px;">Aktif</span>
+                                                                <span class="badge bg-primary text-white">Aktif</span>
                                                             @else
-                                                                <span class="badge bg-danger-subtle text-danger fw-semibold"
-                                                                    style="font-size: 0.75rem; padding: 5px 5px; border-radius: 3px;">Tidak
-                                                                    Aktif</span>
+                                                                <span class="badge bg-danger text-white">Tidak Aktif</span>
                                                             @endif
+
+                                                            <!-- Dropdown -->
+                                                            <div class="dropdown d-inline-block ms-2">
+                                                                <button type="button"
+                                                                    class="btn p-0 dropdown-toggle hide-arrow"
+                                                                    data-bs-toggle="dropdown">
+                                                                    <i class="bx bx-dots-vertical-rounded fs-5"></i>
+                                                                </button>
+                                                                <div class="dropdown-menu">
+                                                                    <a class="dropdown-item" href="#"><i
+                                                                            class="bx bx-check-circle me-1"></i> Aktif</a>
+                                                                    <a class="dropdown-item" href="#"><i
+                                                                            class="bx bx-x-circle me-1"></i> Tidak Aktif</a>
+                                                                </div>
+                                                            </div>
                                                         </td>
+
 
                                                         <td>
                                                             <form action="{{ route('pegawai.destroy', $data->id) }}"
@@ -255,3 +269,8 @@
             </div>
         </div>
     @endsection
+
+    @push('scripts')
+        <!-- Bootstrap 5 Bundle (includes Popper) -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    @endpush

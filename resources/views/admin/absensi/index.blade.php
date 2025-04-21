@@ -37,7 +37,7 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="table-responsive">
-                                            <table class="table mb-0 checkbox-all" id="datatable_1">
+                                            <table id="datatable" class="table table-bordered dt-responsive table-responsive nowrap">
                                                 <thead>
                                                     <tr>
                                                         <th>No</th>
@@ -48,7 +48,7 @@
                                                         <th>Status</th>
                                                         <th>Surat Dokter</th>
                                                         <th>Jam Kerja</th>
-                                                        <th>Aksi</th>
+                                                        {{-- <th>Aksi</th> --}}
 
                                                     </tr>
                                                 </thead>
@@ -102,7 +102,7 @@
                                                             <td>{{ $absensi->jam_kerja ?? '-' }}</td>
 
 
-                                                            <td>
+                                                            {{-- <td>
                                                                 <form action="{{ route('absensi.destroy', $absensi->id) }}"
                                                                     method="POST">
                                                                     @csrf
@@ -115,7 +115,7 @@
                                                                         <i class="mdi mdi-delete fs-14 text-danger"></i>
                                                                     </button>
                                                                 </form>
-                                                            </td>
+                                                            </td> --}}
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
@@ -240,8 +240,7 @@
                                                             <div class="card">
                                                                 <div class="card-body">
                                                                     <div class="table-responsive">
-                                                                        <table class="table mb-0 checkbox-all"
-                                                                            id="datatable_1">
+                                                                        <table id="datatable" class="table table-bordered dt-responsive table-responsive nowrap">
                                                                             <thead>
                                                                                 <tr>
                                                                                     <th>No</th>

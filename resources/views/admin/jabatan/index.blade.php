@@ -8,14 +8,7 @@
 
                 <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
                     <div class="flex-grow-1">
-                        <h4 class="fs-18 fw-semibold m-0">Form Validation</h4>
-                    </div>
-
-                    <div class="text-end">
-                        <ol class="breadcrumb m-0 py-0">
-                            <li class="breadcrumb-item"><a href="javascript: void(0);">Forms</a></li>
-                            <li class="breadcrumb-item active">Form Validation</li>
-                        </ol>
+                        <h4 class="fs-18 fw-semibold m-0">Data jabatan</h4>
                     </div>
                 </div>
             </div>
@@ -24,7 +17,7 @@
                 <div class="col-4">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="fw-bold py-3">Add Jabatan</h5>
+                            <h5 class="fw-bold py-3">Tambah jabatan</h5>
                             <form action="{{ route('jabatan.store') }}" method="POST">
                                 @csrf
                                 <div class="mb-3">
@@ -33,7 +26,7 @@
                                         required>
                                 </div>
 
-                                <button type="submit" class="btn btn-primary">Save</button>
+                                <button type="submit" class="btn btn-primary">Simpan</button>
                             </form>
                         </div>
                     </div>
@@ -41,14 +34,14 @@
                 <div class="col-8">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="fw-bold py-3">Table Jabatan</h5>
+                            <h5 class="fw-bold py-3">Tabel Jabatan</h5>
                             <div class="table-responsive">
                                 <table class="table table-hover" id="example">
                                     <thead>
                                         <tr>
                                             <th>No</th>
                                             <th>Jabatan</th>
-                                            <th>Action</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody class="table-border-bottom-0">
@@ -100,9 +93,9 @@
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary"
-                                                                data-bs-dismiss="modal">Close</button>
-                                                            <button type="submit" class="btn btn-primary">Save
-                                                                changes</button>
+                                                                data-bs-dismiss="modal">Tutup</button>
+                                                            <button type="submit" class="btn btn-primary">Simpan
+                                                                perubahan</button>
                                                         </div>
                                                     </form>
                                                 </div> <!-- end modal content -->
