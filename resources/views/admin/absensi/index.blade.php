@@ -37,7 +37,8 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="table-responsive">
-                                            <table id="datatable" class="table table-bordered dt-responsive table-responsive nowrap">
+                                            <table id="datatable"
+                                                class="table table-bordered dt-responsive table-responsive nowrap">
                                                 <thead>
                                                     <tr>
                                                         <th>No</th>
@@ -240,7 +241,8 @@
                                                             <div class="card">
                                                                 <div class="card-body">
                                                                     <div class="table-responsive">
-                                                                        <table id="datatable" class="table table-bordered dt-responsive table-responsive nowrap">
+                                                                        <table id="datatable"
+                                                                            class="table table-bordered dt-responsive table-responsive nowrap">
                                                                             <thead>
                                                                                 <tr>
                                                                                     <th>No</th>
@@ -271,7 +273,7 @@
                                                                                                 <span
                                                                                                     class="badge bg-primary-subtle text-primary fw-semibold"
                                                                                                     style="font-size: 0.75rem; padding: 5px 5px; border-radius: 3px;">Hadir</span>
-                                                                                                @elseif ($absensi->status == 'Terlambat')
+                                                                                                @elseif($absensi->status == 'Terlambat')
                                                                                                 <span
                                                                                                     class="badge bg-danger-subtle text-warning fw-semibold"
                                                                                                     style="font-size: 0.75rem; padding: 5px 5px; border-radius: 3px;">Terlambat</span>
@@ -318,16 +320,20 @@
                                                                         </div>
                                                                     @endif
                                                                 </div>
+                                                            </div>
                                                         </div>
                                                     </div>
+                                                    <!-- End Recent Order -->
                                                 </div>
-                                                <!-- End Recent Order -->
                                             </div>
                                         </div>
                                     </div>
-                                </div>
                 @endif
             </div>
         </div>
     </div>
 @endsection
+@push('scripts')
+    <!-- Bootstrap 5 Bundle (includes Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+@endpush

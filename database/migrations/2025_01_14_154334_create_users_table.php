@@ -19,11 +19,11 @@ return new class extends Migration
             $table->string('password')->nullable();
             $table->unsignedBigInteger('id_jabatan')->nullable();
             $table->integer('nip')->nullable();
-            $table->integer('telepon')->nullable();
+            $table->string('telepon')->nullable();
             $table->enum('jenis_kelamin', ['L', 'P'])->nullable();
             $table->string('tempat_lahir')->nullable();
             $table->date('tgl_lahir')->nullable();
-            $table->boolean('status_pegawai')->nullable()->default(0);
+            $table->boolean('status_pegawai')->nullable()->default(1);
             $table->string('agama')->nullable();
             $table->text('alamat')->nullable();
             $table->string('profile')->nullable();

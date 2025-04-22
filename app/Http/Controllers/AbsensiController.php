@@ -85,7 +85,7 @@ class AbsensiController extends Controller
 
         $currentTime    = Carbon::now('Asia/Jakarta');
         $jamMasukBatas  = Carbon::createFromTime(7, 0, 0, 'Asia/Jakarta');
-        $jamPulangBatas = Carbon::createFromTime(9, 0, 0, 'Asia/Jakarta');
+        $jamPulangBatas = Carbon::createFromTime(17, 0, 0, 'Asia/Jakarta');
 
         $absensi = Absensi::where('id_user', auth()->user()->id)
             ->whereDate('tanggal', $currentTime->format('Y-m-d'))

@@ -22,8 +22,7 @@
                                 @csrf
                                 <div class="mb-3">
                                     <label for="jabatan" class="form-label">Jabatan</label>
-                                    <input type="text" class="form-control" name="jabatan" placeholder=""
-                                        required>
+                                    <input type="text" class="form-control" name="jabatan" placeholder="" required>
                                 </div>
 
                                 <button type="submit" class="btn btn-primary">Simpan</button>
@@ -54,53 +53,60 @@
                                                     <form action="{{ route('jabatan.destroy', $data->id) }}" method="POST">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <a href="javascript:void(0)" aria-label="anchor"class="btn btn-sm bg-primary-subtle me-1"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#editModal{{ $data->id }}"
-                                                        style="padding-left: 20px; padding-right: 20px; padding-top: 7px; padding-bottom: 7px">
-                                                        <i class="mdi mdi-pencil-outline fs-14 text-primary" data-bs-toggle="tooltip"
-                                                            data-bs-offset="0,4" data-bs-placement="left"
-                                                            data-bs-html="true" title="Update"></i>
+                                                        <a href="javascript:void(0)"
+                                                            aria-label="anchor"class="btn btn-sm bg-primary-subtle me-1"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#editModal{{ $data->id }}"
+                                                            style="padding-left: 20px; padding-right: 20px; padding-top: 7px; padding-bottom: 7px">
+                                                            <i class="mdi mdi-pencil-outline fs-14 text-primary"
+                                                                data-bs-toggle="tooltip" data-bs-offset="0,4"
+                                                                data-bs-placement="left" data-bs-html="true"
+                                                                title="Update"></i>
                                                         </a>
 
-                                                    <button
-                                                        aria-label="anchor" class="btn btn-sm bg-danger-subtle" data-confirm-delete="true"
-                                                        style="padding-left: 20px; padding-right: 20px; padding-top: 7px; padding-bottom: 7px">
-                                                        <i class="mdi mdi-delete fs-14 text-danger" data-bs-toggle="tooltip"
-                                                            data-bs-offset="0,4" data-bs-placement="right"
-                                                            data-bs-html="true" title="Delete"></i>
-                                                    </button>
+                                                        <button aria-label="anchor" class="btn btn-sm bg-danger-subtle"
+                                                            data-confirm-delete="true"
+                                                            style="padding-left: 20px; padding-right: 20px; padding-top: 7px; padding-bottom: 7px">
+                                                            <i class="mdi mdi-delete fs-14 text-danger"
+                                                                data-bs-toggle="tooltip" data-bs-offset="0,4"
+                                                                data-bs-placement="right" data-bs-html="true"
+                                                                title="Delete"></i>
+                                                        </button>
                                                     </form>
                                                 </td>
                                             </tr>
                                             <div class="modal fade" id="editModal{{ $data->id }}" tabindex="-1">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title">Update Jabatan</h5>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                    </div>
-                                                     <form action="{{ route('jabatan.update', $data->id) }}"
-                                                        method="POST">
-                                                        @csrf
-                                                        @method('PUT')
-                                                        <div class="modal-body">
-                                                            <div class="mb-3">
-                                                                <label for="jabatan" class="form-label">Nama Jabatan</label>
-                                                                <input type="text" class="form-control" name="jabatan" value="{{ old('jabatan', $data->jabatan )}}"
-                                                                required>
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Update Jabatan</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                aria-label="Close"></button>
+                                                        </div>
+                                                        <form action="{{ route('jabatan.update', $data->id) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            @method('PUT')
+                                                            <div class="modal-body">
+                                                                <div class="mb-3">
+                                                                    <label for="jabatan" class="form-label">Nama
+                                                                        Jabatan</label>
+                                                                    <input type="text" class="form-control"
+                                                                        name="jabatan"
+                                                                        value="{{ old('jabatan', $data->jabatan) }}"
+                                                                        required>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary"
-                                                                data-bs-dismiss="modal">Tutup</button>
-                                                            <button type="submit" class="btn btn-primary">Simpan
-                                                                perubahan</button>
-                                                        </div>
-                                                    </form>
-                                                </div> <!-- end modal content -->
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    data-bs-dismiss="modal">Tutup</button>
+                                                                <button type="submit" class="btn btn-primary">Simpan
+                                                                    perubahan</button>
+                                                            </div>
+                                                        </form>
+                                                    </div> <!-- end modal content -->
+                                                </div>
                                             </div>
-                                        </div>
                                         @endforeach
                                     </tbody>
                                 </table>
@@ -111,3 +117,7 @@
                 </div>
             </div>
         @endsection
+        @push('scripts')
+            <!-- Bootstrap 5 Bundle (includes Popper) -->
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        @endpush

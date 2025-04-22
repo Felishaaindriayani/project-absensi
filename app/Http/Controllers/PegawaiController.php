@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-
 class PegawaiController extends Controller
 {
     /**
@@ -47,7 +46,7 @@ class PegawaiController extends Controller
         $pegawai->jenis_kelamin  = $request->jenis_kelamin;
         $pegawai->tempat_lahir   = $request->tempat_lahir;
         $pegawai->tgl_lahir      = $request->tgl_lahir;
-        $pegawai->status_pegawai = 0;
+        $pegawai->status_pegawai = 1;
         $pegawai->agama          = $request->agama;
         $pegawai->alamat         = $request->alamat;
 
@@ -84,6 +83,21 @@ class PegawaiController extends Controller
         $pegawai = User::findOrFail($id);
         $jabatan = jabatan::all();
         return view('admin.pegawai.edit', compact('pegawai', 'jabatan'));
+    }
+
+    public function ubahStatus($id, $status)
+    {
+        $pegawai = User::findOrFail($id);
+
+        // Validasi status: hanya 0 atau 1
+        if (! in_array($status, [0, 1])) {
+            return redirect()->back()->with('error', 'Status tidak valid.');
+        }
+
+        $pegawai->status_pegawai = $status;
+        $pegawai->save();
+
+        return redirect()->back()->with('success', 'Status pegawai berhasil diubah.');
     }
 
     /**

@@ -61,14 +61,21 @@ class PengajuanCutiController extends Controller
      */
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'alasan'            => 'required|string|max:255',
-        //     'kategori_cuti'     => 'required|string',
-        //     'tanggal_pengajuan' => 'required|date',
-        //     'hpl'               => 'required_if:kategori_cuti,Cuti melahirkan|date',
-        //     'tanggal_mulai'     => 'required_if:kategori_cuti,Izin,Cuti tahunan|date',
-        //     'tanggal_selesai'   => 'required_if:kategori_cuti,Izin,Cuti tahunan|date|after_or_equal:tanggal_mulai',
-        // ]);
+        // Validasi awal
+//     $request->validate([
+//     'alasan'            => 'required|string|max:255',
+//     'kategori_cuti'     => 'required|string',
+//     'tanggal_pengajuan' => 'required|date',
+//     'hpl'               => 'required_if:kategori_cuti,Cuti melahirkan|date',
+//     'tanggal_mulai'     => 'sometimes|required_if:kategori_cuti,Izin,Cuti tahunan|date',
+//     'tanggal_selesai'   => 'sometimes|required_if:kategori_cuti,Izin,Cuti tahunan|date|after_or_equal:tanggal_mulai',
+// ]);
+
+        // Validasi tambahan: Jika user laki-laki memilih cuti melahirkan
+        if ($request->kategori_cuti === 'Cuti melahirkan' && auth()->user()->jenis_kelamin === 'L') {
+            Alert::error('User laki-laki tidak dapat mengajukan cuti melahirkan.', 'error');
+            return back();
+        }
 
         if ($request->kategori_cuti == 'Izin') {
             $mulai       = Carbon::parse($request->tanggal_mulai);
@@ -94,11 +101,10 @@ class PengajuanCutiController extends Controller
             }
         }
 
-        // Hitung otomatis tanggal cuti melahirkan dari HPL
         if ($request->kategori_cuti == 'Cuti melahirkan') {
             $hpl             = Carbon::parse($request->hpl);
-            $tanggal_mulai   = $hpl->copy()->subWeeks(4); // 1 bulan sebelum HPL
-            $tanggal_selesai = $hpl->copy()->addWeeks(8); // 2 bulan setelah HPL
+            $tanggal_mulai   = $hpl->copy()->subWeeks(4);
+            $tanggal_selesai = $hpl->copy()->addWeeks(8);
         } else {
             $tanggal_mulai   = $request->tanggal_mulai;
             $tanggal_selesai = $request->tanggal_selesai;
@@ -168,7 +174,6 @@ class PengajuanCutiController extends Controller
         //     'message' => 'Unauthorized',
         // ], 401);
 
-        
         $meetNotification = Meeting::where('status', 'menunggu')->count();
 
         return response()->json([

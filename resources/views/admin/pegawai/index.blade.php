@@ -53,27 +53,37 @@
                                                         <td>{{ $data->nip }}</td>
                                                         <td>
                                                             <!-- Status -->
-                                                            @if ($data->status_pegawai == 1)
-                                                                <span class="badge bg-primary text-white">Aktif</span>
-                                                            @else
-                                                                <span class="badge bg-danger text-white">Tidak Aktif</span>
-                                                            @endif
+                                                            <div class="d-flex justify-content-between align-items-center"
+                                                                style="min-width: 130px;">
+                                                                {{-- Status --}}
+                                                                @if ($data->status_pegawai == 1)
+                                                                    <span class="badge bg-primary-subtle text-primary fw-semibold">Aktif</span>
+                                                                @else
+                                                                    <span class="badge bg-danger-subtle text-danger fw-semibold">Tidak
+                                                                        Aktif</span>
+                                                                @endif
 
-                                                            <!-- Dropdown -->
-                                                            <div class="dropdown d-inline-block ms-2">
-                                                                <button type="button"
-                                                                    class="btn p-0 dropdown-toggle hide-arrow"
-                                                                    data-bs-toggle="dropdown">
-                                                                    <i class="bx bx-dots-vertical-rounded fs-5"></i>
-                                                                </button>
-                                                                <div class="dropdown-menu">
-                                                                    <a class="dropdown-item" href="#"><i
-                                                                            class="bx bx-check-circle me-1"></i> Aktif</a>
-                                                                    <a class="dropdown-item" href="#"><i
-                                                                            class="bx bx-x-circle me-1"></i> Tidak Aktif</a>
+                                                                {{-- Titik tiga / dropdown --}}
+                                                                <div class="dropdown">
+                                                                    <button type="button"
+                                                                        class="btn p-0 dropdown-toggle hide-arrow"
+                                                                        data-bs-toggle="dropdown">
+                                                                        <i class="bx bx-dots-vertical-rounded fs-5"></i>
+                                                                    </button>
+                                                                    <div class="dropdown-menu">
+                                                                        <a class="dropdown-item"
+                                                                            href="{{ route('pegawai.ubahStatus', ['id' => $data->id, 'status' => 1]) }}">
+                                                                            <i class="bx bx-check-circle me-1"></i> Aktif
+                                                                        </a>
+                                                                        <a class="dropdown-item"
+                                                                            href="{{ route('pegawai.ubahStatus', ['id' => $data->id, 'status' => 0]) }}">
+                                                                            <i class="bx bx-x-circle me-1"></i> Tidak Aktif
+                                                                        </a>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </td>
+
 
 
                                                         <td>
@@ -152,7 +162,8 @@
                                                                                 <select id="jabatan" name="id_jabatan"
                                                                                     class="form-control">
                                                                                     @foreach ($jabatan as $data)
-                                                                                        <option value="{{ $data->id }}">
+                                                                                        <option
+                                                                                            value="{{ $data->id }}">
                                                                                             {{ $data->jabatan }}</option>
                                                                                     @endforeach
                                                                                 </select>

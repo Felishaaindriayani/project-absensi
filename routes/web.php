@@ -26,6 +26,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::resource('jabatan', JabatanController::class);
 Route::resource('pegawai', PegawaiController::class);
+Route::get('/pegawai/{id}/status/{status}', [PegawaiController::class, 'ubahStatus'])->name('pegawai.ubahStatus');
+
 // Route::get('/pegawai/{pegawai}', [PegawaiController::class, 'show'])->name('pegawai.show');
 
 
